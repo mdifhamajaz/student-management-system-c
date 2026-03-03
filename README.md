@@ -82,7 +82,7 @@ gcc main.c -o sms
 Student-Management-System-C
 │
 ├── main.c
-└── README.md
+├── README.md
 └── .gitignore
 ```
 
