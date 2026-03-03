@@ -83,6 +83,7 @@ Student-Management-System-C
 │
 ├── main.c
 └── README.md
+└── .gitignore
 ```
 
 ---
