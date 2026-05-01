@@ -1,18 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct
+{
+
+    char name[34];
+    int roll;
+    float marks;
+} student;
+
 void printMenu();
 int scanMenu();
-void addStudent(char students[1000][20]);
-void displayStudents(char students[1000][20]);
-void searchStudent(char students[1000][20]);
-void deleteStudent(char students[1000][20]);
-void updateStudent(char students[1000][20]);
+void addStudent(student students[1000]);
+void displayStudents(student students[1000]);
+void searchStudent(student students[1000]);
+void deleteStudent(student students[1000]);
+void updateStudent(student students[1000]);
 int count_of_std = 0;
 
 int main()
 {
-    char students[1000][20];
+    student students[1000];
 
     int choice;
 
@@ -76,30 +84,58 @@ int scanMenu()
     return choice;
 }
 
-void addStudent(char students[1000][20])
+void addStudent(student students[1000])
 {
 
-    char name[20];
+    char name[34];
 
     do
     {
         printf("Enter the name of student to add(Enter done if done adding): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
             break;
         }
-        strcpy(students[count_of_std], name);
+        strcpy(students[count_of_std].name, name);
+        int roll;
+        do
+        {
+            int isDuplicate = 0;
+
+            printf("Enter the roll no: ");
+            scanf("%d", &roll);
+
+            for (int i = 0; i < count_of_std; i++)
+            {
+                if (students[i].roll == roll)
+                {
+                    isDuplicate = 1;
+                    printf("Roll already exists! Try again.\n");
+                    break;
+                }
+            }
+
+            if (!isDuplicate)
+                break;
+
+        } while (1);
+
+        students[count_of_std].roll = roll;
+
+        printf("Enter his marks(%%): ");
+        scanf("%f", &(students[count_of_std].marks));
+
         count_of_std++;
 
         printf("Added %s\n", name);
     } while (strcmp(name, "done") != 0);
 }
 
-void displayStudents(char students[1000][20])
+void displayStudents(student students[1000])
 {
-    char name[20];
+    char name[34];
 
     do
     {
@@ -107,7 +143,9 @@ void displayStudents(char students[1000][20])
         {
             for (int i = 0; i < count_of_std; i++)
             {
-                printf("%d: %s\n", i + 1, students[i]);
+                printf("%d: Name: %s\n", i + 1, students[i].name);
+                printf("   Roll: %d\n", students[i].roll);
+                printf("   Marks: %.2f %%\n", students[i].marks);
             }
         }
         else
@@ -115,13 +153,13 @@ void displayStudents(char students[1000][20])
             printf("No students added yet!\n");
         }
         printf("\nEnter done to go to main menu: ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
     } while (strcmp(name, "done") != 0);
 }
 
-void searchStudent(char students[1000][20])
+void searchStudent(student students[1000])
 {
-    char name[20];
+    char name[34];
     if (count_of_std == 0)
     {
         printf("No students available!\n\n");
@@ -131,8 +169,9 @@ void searchStudent(char students[1000][20])
     do
     {
         int isFound = 0;
+        int index;
         printf("Enter the name of student you want to search(Enter done if done sarching): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
@@ -141,15 +180,19 @@ void searchStudent(char students[1000][20])
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (strcmp(name, students[i].name) == 0)
             {
                 isFound = 1;
+                index = i;
                 break;
             }
         }
         if (isFound)
         {
             printf("Student is present in the database\n");
+            printf("Name : %s\n", students[index].name);
+            printf("Roll : %d\n", students[index].roll);
+            printf("Marks: %.2f %%\n", students[index].marks);
         }
         else
         {
@@ -157,9 +200,9 @@ void searchStudent(char students[1000][20])
         }
     } while (strcmp(name, "done") != 0);
 }
-void deleteStudent(char students[1000][20])
+void deleteStudent(student students[1000])
 {
-    char name[20];
+    char name[34];
     char confirmation;
     int index = 0;
     if (count_of_std == 0)
@@ -172,7 +215,7 @@ void deleteStudent(char students[1000][20])
     {
         int isFound = 0;
         printf("Enter the name of student to delete(Enter done if done deleting): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
@@ -181,7 +224,7 @@ void deleteStudent(char students[1000][20])
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (strcmp(name, students[i].name) == 0)
             {
                 isFound = 1;
                 index = i;
@@ -198,7 +241,7 @@ void deleteStudent(char students[1000][20])
 
                 for (int i = index; i < count_of_std - 1; i++)
                 {
-                    strcpy(students[i], students[i + 1]);
+                    students[i] = students[i + 1];
                 }
                 printf("%s deleted!\n\n", name);
                 count_of_std--;
@@ -217,10 +260,12 @@ void deleteStudent(char students[1000][20])
     } while (strcmp(name, "done") != 0);
 }
 
-void updateStudent(char students[1000][20])
+void updateStudent(student students[1000])
 {
-    char name[20];
-    char new_name[20];
+    char name[34];
+    char new_name[34];
+    int new_roll;
+    float new_marks;
 
     int index = 0;
     char confirmation;
@@ -234,7 +279,7 @@ void updateStudent(char students[1000][20])
         int isFound = 0;
 
         printf("Enter the name of student you want to update(Enter done if done sarching): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
@@ -243,7 +288,7 @@ void updateStudent(char students[1000][20])
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (strcmp(name, students[i].name) == 0)
             {
                 isFound = 1;
                 index = i;
@@ -253,14 +298,53 @@ void updateStudent(char students[1000][20])
         if (isFound)
         {
             printf("Enter the new name: ");
-            scanf(" %19s", new_name);
+            scanf(" %33s", new_name);
 
-            printf("Are you sure? %s will be updated to %s! (y/n): ", name, new_name);
+            do
+            {
+                int isDuplicate = 0;
+
+                printf("Enter the new roll no: ");
+                scanf("%d", &new_roll);
+
+                for (int i = 0; i < count_of_std; i++)
+                {
+                    if (students[i].roll == new_roll && i != index)
+                    {
+                        isDuplicate = 1;
+                        printf("Roll already exists! Try again.\n");
+                        break;
+                    }
+                }
+
+                if (!isDuplicate)
+                    break;
+
+            } while (1);
+
+            printf("Enter the new marks(%%): ");
+            scanf("%f", &new_marks);
+
+            printf("\n----- Confirm Update -----\n");
+
+            printf("OLD DATA:\n");
+            printf("Name : %s\n", students[index].name);
+            printf("Roll : %d\n", students[index].roll);
+            printf("Marks: %.2f %%\n", students[index].marks);
+
+            printf("\nNEW DATA:\n");
+            printf("Name : %s\n", new_name);
+            printf("Roll : %d\n", new_roll);
+            printf("Marks: %.2f %%\n", new_marks);
+
+            printf("\nConfirm update? (y/n): ");
             scanf(" %c", &confirmation);
 
             if (confirmation == 'y')
             {
-                strcpy(students[index], new_name);
+                strcpy(students[index].name, new_name);
+                students[index].roll = new_roll;
+                students[index].marks = new_marks;
                 printf("Update successful\n\n");
                 break;
             }
