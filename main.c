@@ -13,7 +13,8 @@ void printMenu();
 int scanMenu();
 void addStudent(student students[1000]);
 void displayStudents(student students[1000]);
-void searchStudent(student students[1000]);
+void searchStudentByName(student students[1000]);
+void searchStudentByRoll(student students[1000]);
 void deleteStudent(student students[1000]);
 void updateStudent(student students[1000]);
 int count_of_std = 0;
@@ -47,13 +48,17 @@ int main()
 
         if (choice == 3)
         {
-            searchStudent(students);
+            searchStudentByName(students);
         }
         if (choice == 4)
         {
-            deleteStudent(students);
+            searchStudentByRoll(students);
         }
         if (choice == 5)
+        {
+            deleteStudent(students);
+        }
+        if (choice == 6)
         {
             updateStudent(students);
         }
@@ -68,9 +73,10 @@ void printMenu()
 
     printf("1: Add students\n");
     printf("2: Display students\n");
-    printf("3: Search student\n");
-    printf("4: Delete student\n");
-    printf("5: Update student\n");
+    printf("3: Search student By Name\n");
+    printf("4: Search student By Roll\n");
+    printf("5: Delete student\n");
+    printf("6: Update student\n");
     printf("0: Exit\n");
 }
 
@@ -157,7 +163,7 @@ void displayStudents(student students[1000])
     } while (strcmp(name, "done") != 0);
 }
 
-void searchStudent(student students[1000])
+void searchStudentByName(student students[1000])
 {
     char name[34];
     if (count_of_std == 0)
@@ -169,7 +175,7 @@ void searchStudent(student students[1000])
     do
     {
         int isFound = 0;
-        int index;
+         
         printf("Enter the name of student you want to search(Enter done if done sarching): ");
         scanf(" %33s", name);
 
@@ -178,27 +184,68 @@ void searchStudent(student students[1000])
             break;
         }
 
+        
+
         for (int i = 0; i < count_of_std; i++)
         {
             if (strcmp(name, students[i].name) == 0)
             {
+                printf("\nMatch Found:\n");
+                printf("Name : %s\n", students[i].name);
+                printf("Roll : %d\n", students[i].roll);
+                printf("Marks: %.2f %%\n", students[i].marks);
+
                 isFound = 1;
-                index = i;
-                break;
             }
         }
-        if (isFound)
+
+        if (!isFound)
         {
-            printf("Student is present in the database\n");
-            printf("Name : %s\n", students[index].name);
-            printf("Roll : %d\n", students[index].roll);
-            printf("Marks: %.2f %%\n", students[index].marks);
-        }
-        else
-        {
-            printf("Student is not present in the database\n");
+            printf("No student found with this name\n");
         }
     } while (strcmp(name, "done") != 0);
+}
+void searchStudentByRoll(student students[1000])
+{
+    int roll;
+    if (count_of_std == 0)
+    {
+        printf("No students available!\n\n");
+        return;
+    }
+
+    do
+    {
+        int isFound = 0;
+         
+        printf("Enter the roll no. of student you want to search(Enter 0 if done sarching): ");
+        scanf("%d", &roll);
+
+        if (roll == 0)
+        {
+            break;
+        }
+
+        
+
+        for (int i = 0; i < count_of_std; i++)
+        {
+            if (roll ==  students[i].roll)
+            {
+                printf("\nMatch Found:\n");
+                printf("Name : %s\n", students[i].name);
+                printf("Roll : %d\n", students[i].roll);
+                printf("Marks: %.2f %%\n", students[i].marks);
+
+                isFound = 1;
+            }
+        }
+
+        if (!isFound)
+        {
+            printf("No student found with this roll no.\n");
+        }
+    } while (roll != 0);
 }
 void deleteStudent(student students[1000])
 {
