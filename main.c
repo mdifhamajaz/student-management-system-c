@@ -1,18 +1,31 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct
+{
+
+    char name[34];
+    int roll;
+    float marks;
+} student;
+
+void loadFromFile(student students[1000]);
+void saveToFile(student students[1000]);
 void printMenu();
 int scanMenu();
-void addStudent(char students[1000][20]);
-void displayStudents(char students[1000][20]);
-void searchStudent(char students[1000][20]);
-void deleteStudent(char students[1000][20]);
-void updateStudent(char students[1000][20]);
+void addStudent(student students[1000]);
+void displayStudents(student students[1000]);
+void searchStudentByName(student students[1000]);
+void searchStudentByRoll(student students[1000]);
+void deleteStudent(student students[1000]);
+void updateStudent(student students[1000]);
 int count_of_std = 0;
 
 int main()
 {
-    char students[1000][20];
+    student students[1000];
+
+    loadFromFile(students);
 
     int choice;
 
@@ -39,13 +52,17 @@ int main()
 
         if (choice == 3)
         {
-            searchStudent(students);
+            searchStudentByName(students);
         }
         if (choice == 4)
         {
-            deleteStudent(students);
+            searchStudentByRoll(students);
         }
         if (choice == 5)
+        {
+            deleteStudent(students);
+        }
+        if (choice == 6)
         {
             updateStudent(students);
         }
@@ -55,14 +72,56 @@ int main()
     return 0;
 }
 
+void loadFromFile(student students[1000])
+{
+    FILE *fptr;
+    fptr = fopen("student_data.dat", "rb");
+
+    if (fptr != NULL)
+    {
+        while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
+        {
+            count_of_std++;
+        }
+
+        fclose(fptr);
+        fptr = NULL;
+    } else {
+        fptr = fopen("student_data.dat", "wb");
+        fclose(fptr);
+        fptr = NULL;
+    }
+     
+}
+
+void saveToFile(student students[1000])
+{
+    FILE *fptr;
+    fptr = fopen("student_data.dat", "wb");
+
+    if (fptr != NULL)
+    {
+        fwrite(students, sizeof(student), count_of_std, fptr);
+         
+
+        fclose(fptr);
+        fptr = NULL;
+    }
+    else
+    {
+        printf("File not found!");
+    }
+}
+
 void printMenu()
 {
 
     printf("1: Add students\n");
     printf("2: Display students\n");
-    printf("3: Search student\n");
-    printf("4: Delete student\n");
-    printf("5: Update student\n");
+    printf("3: Search student By Name\n");
+    printf("4: Search student By Roll\n");
+    printf("5: Delete student\n");
+    printf("6: Update student\n");
     printf("0: Exit\n");
 }
 
@@ -76,30 +135,67 @@ int scanMenu()
     return choice;
 }
 
-void addStudent(char students[1000][20])
+void addStudent(student students[1000])
 {
 
-    char name[20];
+    char name[34];
 
     do
     {
         printf("Enter the name of student to add(Enter done if done adding): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
             break;
         }
-        strcpy(students[count_of_std], name);
+        strcpy(students[count_of_std].name, name);
+        int roll;
+        do
+        {
+            int isDuplicate = 0;
+
+            printf("Enter the roll no: ");
+            scanf("%d", &roll);
+
+            if (roll < 1)
+            {
+                printf("Roll no can't be negative or 0.\n");
+            }
+            else
+            {
+
+                for (int i = 0; i < count_of_std; i++)
+                {
+                    if (students[i].roll == roll)
+                    {
+                        isDuplicate = 1;
+                        printf("Roll already exists! Try again.\n");
+                        break;
+                    }
+                }
+
+                if (!isDuplicate)
+                    break;
+            }
+
+        } while (1);
+
+        students[count_of_std].roll = roll;
+
+        printf("Enter his marks(%%): ");
+        scanf("%f", &(students[count_of_std].marks));
+
         count_of_std++;
+        saveToFile(students);
 
         printf("Added %s\n", name);
     } while (strcmp(name, "done") != 0);
 }
 
-void displayStudents(char students[1000][20])
+void displayStudents(student students[1000])
 {
-    char name[20];
+    char name[34];
 
     do
     {
@@ -107,7 +203,9 @@ void displayStudents(char students[1000][20])
         {
             for (int i = 0; i < count_of_std; i++)
             {
-                printf("%d: %s\n", i + 1, students[i]);
+                printf("%d: Name: %s\n", i + 1, students[i].name);
+                printf("   Roll: %d\n", students[i].roll);
+                printf("   Marks: %.2f %%\n", students[i].marks);
             }
         }
         else
@@ -115,13 +213,13 @@ void displayStudents(char students[1000][20])
             printf("No students added yet!\n");
         }
         printf("\nEnter done to go to main menu: ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
     } while (strcmp(name, "done") != 0);
 }
 
-void searchStudent(char students[1000][20])
+void searchStudentByName(student students[1000])
 {
-    char name[20];
+    char name[34];
     if (count_of_std == 0)
     {
         printf("No students available!\n\n");
@@ -131,8 +229,9 @@ void searchStudent(char students[1000][20])
     do
     {
         int isFound = 0;
+
         printf("Enter the name of student you want to search(Enter done if done sarching): ");
-        scanf(" %19s", name);
+        scanf(" %33s", name);
 
         if (strcmp(name, "done") == 0)
         {
@@ -141,25 +240,66 @@ void searchStudent(char students[1000][20])
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (strcmp(name, students[i].name) == 0)
             {
+                printf("\nMatch Found:\n");
+                printf("Name : %s\n", students[i].name);
+                printf("Roll : %d\n", students[i].roll);
+                printf("Marks: %.2f %%\n", students[i].marks);
+
                 isFound = 1;
-                break;
             }
         }
-        if (isFound)
+
+        if (!isFound)
         {
-            printf("Student is present in the database\n");
-        }
-        else
-        {
-            printf("Student is not present in the database\n");
+            printf("No student found with this name\n");
         }
     } while (strcmp(name, "done") != 0);
 }
-void deleteStudent(char students[1000][20])
+void searchStudentByRoll(student students[1000])
 {
-    char name[20];
+    int roll;
+    if (count_of_std == 0)
+    {
+        printf("No students available!\n\n");
+        return;
+    }
+
+    do
+    {
+        int isFound = 0;
+
+        printf("Enter the roll no. of student you want to search(Enter 0 if done sarching): ");
+        scanf("%d", &roll);
+
+        if (roll == 0)
+        {
+            break;
+        }
+
+        for (int i = 0; i < count_of_std; i++)
+        {
+            if (roll == students[i].roll)
+            {
+                printf("\nMatch Found:\n");
+                printf("Name : %s\n", students[i].name);
+                printf("Roll : %d\n", students[i].roll);
+                printf("Marks: %.2f %%\n", students[i].marks);
+
+                isFound = 1;
+            }
+        }
+
+        if (!isFound)
+        {
+            printf("No student found with this roll no.\n");
+        }
+    } while (roll != 0);
+}
+void deleteStudent(student students[1000])
+{
+    int roll;
     char confirmation;
     int index = 0;
     if (count_of_std == 0)
@@ -171,17 +311,17 @@ void deleteStudent(char students[1000][20])
     do
     {
         int isFound = 0;
-        printf("Enter the name of student to delete(Enter done if done deleting): ");
-        scanf(" %19s", name);
+        printf("Enter the roll no. of student to delete(Enter 0 if done deleting): ");
+        scanf("%d", &roll);
 
-        if (strcmp(name, "done") == 0)
+        if (roll == 0)
         {
             break;
         }
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (roll == students[i].roll)
             {
                 isFound = 1;
                 index = i;
@@ -190,7 +330,14 @@ void deleteStudent(char students[1000][20])
         }
         if (isFound)
         {
-            printf("Are you sure you want to permanently delete %s(y/n): ", name);
+            printf("\n----- Confirm Deletion -----\n");
+
+            printf("STUDENT DATA:\n");
+            printf("Name : %s\n", students[index].name);
+            printf("Roll : %d\n", students[index].roll);
+            printf("Marks: %.2f %%\n", students[index].marks);
+
+            printf("\nConfirm Deletion? (y/n): ");
             scanf(" %c", &confirmation);
 
             if (confirmation == 'y')
@@ -198,10 +345,11 @@ void deleteStudent(char students[1000][20])
 
                 for (int i = index; i < count_of_std - 1; i++)
                 {
-                    strcpy(students[i], students[i + 1]);
+                    students[i] = students[i + 1];
                 }
-                printf("%s deleted!\n\n", name);
+                printf("Deletion successful\n");
                 count_of_std--;
+                saveToFile(students);
                 break;
             }
             else
@@ -214,13 +362,15 @@ void deleteStudent(char students[1000][20])
             printf("Student is not present in the database\n");
         }
 
-    } while (strcmp(name, "done") != 0);
+    } while (roll != 0);
 }
 
-void updateStudent(char students[1000][20])
+void updateStudent(student students[1000])
 {
-    char name[20];
-    char new_name[20];
+    int roll;
+    char new_name[34];
+    int new_roll;
+    float new_marks;
 
     int index = 0;
     char confirmation;
@@ -233,17 +383,17 @@ void updateStudent(char students[1000][20])
     {
         int isFound = 0;
 
-        printf("Enter the name of student you want to update(Enter done if done sarching): ");
-        scanf(" %19s", name);
+        printf("Enter the roll no. of student you want to update(Enter 0 if done sarching): ");
+        scanf("%d", &roll);
 
-        if (strcmp(name, "done") == 0)
+        if (roll == 0)
         {
             break;
         }
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i]) == 0)
+            if (roll == students[i].roll)
             {
                 isFound = 1;
                 index = i;
@@ -252,16 +402,68 @@ void updateStudent(char students[1000][20])
         }
         if (isFound)
         {
+            printf("OLD DATA:\n");
+            printf("Name : %s\n", students[index].name);
+            printf("Roll : %d\n", students[index].roll);
+            printf("Marks: %.2f %%\n", students[index].marks);
             printf("Enter the new name: ");
-            scanf(" %19s", new_name);
+            scanf(" %33s", new_name);
 
-            printf("Are you sure? %s will be updated to %s! (y/n): ", name, new_name);
+            do
+            {
+                int isDuplicate = 0;
+
+                printf("Enter the new roll no: ");
+                scanf("%d", &new_roll);
+
+                if (new_roll < 1)
+                {
+                    printf("Roll no can't be negative or 0.\n");
+                }
+                else
+                {
+
+                    for (int i = 0; i < count_of_std; i++)
+                    {
+                        if (students[i].roll == new_roll && i != index)
+                        {
+                            isDuplicate = 1;
+                            printf("Roll already exists! Try again.\n");
+                            break;
+                        }
+                    }
+
+                    if (!isDuplicate)
+                        break;
+                }
+
+            } while (1);
+
+            printf("Enter the new marks(%%): ");
+            scanf("%f", &new_marks);
+
+            printf("\n----- Confirm Update -----\n");
+
+            printf("OLD DATA:\n");
+            printf("Name : %s\n", students[index].name);
+            printf("Roll : %d\n", students[index].roll);
+            printf("Marks: %.2f %%\n", students[index].marks);
+
+            printf("\nNEW DATA:\n");
+            printf("Name : %s\n", new_name);
+            printf("Roll : %d\n", new_roll);
+            printf("Marks: %.2f %%\n", new_marks);
+
+            printf("\nConfirm update? (y/n): ");
             scanf(" %c", &confirmation);
 
             if (confirmation == 'y')
             {
-                strcpy(students[index], new_name);
+                strcpy(students[index].name, new_name);
+                students[index].roll = new_roll;
+                students[index].marks = new_marks;
                 printf("Update successful\n\n");
+                saveToFile(students);
                 break;
             }
             else
@@ -274,5 +476,5 @@ void updateStudent(char students[1000][20])
             printf("Student is not present in the database\n");
         }
 
-    } while (strcmp(name, "done") != 0);
+    } while (roll != 0);
 }
