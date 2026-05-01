@@ -9,6 +9,8 @@ typedef struct
     float marks;
 } student;
 
+void loadFromFile(student students[1000]);
+void saveToFile(student students[1000]);
 void printMenu();
 int scanMenu();
 void addStudent(student students[1000]);
@@ -22,6 +24,8 @@ int count_of_std = 0;
 int main()
 {
     student students[1000];
+
+    loadFromFile(students);
 
     int choice;
 
@@ -66,6 +70,47 @@ int main()
     } while (choice != 0);
 
     return 0;
+}
+
+void loadFromFile(student students[1000])
+{
+    FILE *fptr;
+    fptr = fopen("student_data.dat", "rb");
+
+    if (fptr != NULL)
+    {
+        while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
+        {
+            count_of_std++;
+        }
+
+        fclose(fptr);
+        fptr = NULL;
+    } else {
+        fptr = fopen("student_data.dat", "wb");
+        fclose(fptr);
+        fptr = NULL;
+    }
+     
+}
+
+void saveToFile(student students[1000])
+{
+    FILE *fptr;
+    fptr = fopen("student_data.dat", "wb");
+
+    if (fptr != NULL)
+    {
+        fwrite(students, sizeof(student), count_of_std, fptr);
+         
+
+        fclose(fptr);
+        fptr = NULL;
+    }
+    else
+    {
+        printf("File not found!");
+    }
 }
 
 void printMenu()
@@ -142,6 +187,7 @@ void addStudent(student students[1000])
         scanf("%f", &(students[count_of_std].marks));
 
         count_of_std++;
+        saveToFile(students);
 
         printf("Added %s\n", name);
     } while (strcmp(name, "done") != 0);
@@ -303,6 +349,7 @@ void deleteStudent(student students[1000])
                 }
                 printf("Deletion successful\n");
                 count_of_std--;
+                saveToFile(students);
                 break;
             }
             else
@@ -416,6 +463,7 @@ void updateStudent(student students[1000])
                 students[index].roll = new_roll;
                 students[index].marks = new_marks;
                 printf("Update successful\n\n");
+                saveToFile(students);
                 break;
             }
             else
