@@ -75,7 +75,7 @@ int main()
 void loadFromFile(student students[1000])
 {
     FILE *fptr;
-    fptr = fopen("student_data.dat", "rb");
+    fptr = fopen("data/student_data.dat", "rb");
 
     if (fptr != NULL)
     {
@@ -87,7 +87,7 @@ void loadFromFile(student students[1000])
         fclose(fptr);
         fptr = NULL;
     } else {
-        fptr = fopen("student_data.dat", "wb");
+        fptr = fopen("data/student_data.dat", "wb");
         fclose(fptr);
         fptr = NULL;
     }
@@ -97,7 +97,7 @@ void loadFromFile(student students[1000])
 void saveToFile(student students[1000])
 {
     FILE *fptr;
-    fptr = fopen("student_data.dat", "wb");
+    fptr = fopen("data/student_data.dat", "wb");
 
     if (fptr != NULL)
     {
