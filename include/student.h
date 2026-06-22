@@ -15,5 +15,7 @@ typedef struct
 } student;
 
 extern int count_of_std;
+void addStudent(student students[1000]);
+void displayStudents(student students[1000]);
 
 #endif
