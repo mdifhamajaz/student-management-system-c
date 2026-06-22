@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct
-{
+#include "file_handler.h"
+#include "student.h"
 
-    char name[34];
-    int roll;
-    float marks;
-} student;
 
-void loadFromFile(student students[1000]);
-void saveToFile(student students[1000]);
+
+
 void printMenu();
 int scanMenu();
 void addStudent(student students[1000]);
@@ -19,7 +15,7 @@ void searchStudentByName(student students[1000]);
 void searchStudentByRoll(student students[1000]);
 void deleteStudent(student students[1000]);
 void updateStudent(student students[1000]);
-int count_of_std = 0;
+
 
 int main()
 {
@@ -72,46 +68,6 @@ int main()
     return 0;
 }
 
-void loadFromFile(student students[1000])
-{
-    FILE *fptr;
-    fptr = fopen("data/student_data.dat", "rb");
-
-    if (fptr != NULL)
-    {
-        while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
-        {
-            count_of_std++;
-        }
-
-        fclose(fptr);
-        fptr = NULL;
-    } else {
-        fptr = fopen("data/student_data.dat", "wb");
-        fclose(fptr);
-        fptr = NULL;
-    }
-     
-}
-
-void saveToFile(student students[1000])
-{
-    FILE *fptr;
-    fptr = fopen("data/student_data.dat", "wb");
-
-    if (fptr != NULL)
-    {
-        fwrite(students, sizeof(student), count_of_std, fptr);
-         
-
-        fclose(fptr);
-        fptr = NULL;
-    }
-    else
-    {
-        printf("File not found!");
-    }
-}
 
 void printMenu()
 {
