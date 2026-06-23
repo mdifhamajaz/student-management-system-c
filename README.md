@@ -202,6 +202,8 @@ This project will continue evolving with more advanced features in upcoming vers
 - Implemented multi-file compilation
 - Improved maintainability and readability without changing functionality
 
+🔗 Full changes: https://github.com/mdifhamajaz/student-management-system-c/compare/v2.0...v2.1
+
 ---
 
 ⭐ If you're also learning C, feel free to explore this project, suggest improvements, or build your own version alongside!
