@@ -1,139 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct
-{
-
-    char name[34];
-    int roll;
-    float marks;
-} student;
-
-void loadFromFile(student students[1000]);
-void saveToFile(student students[1000]);
-void printMenu();
-int scanMenu();
-void addStudent(student students[1000]);
-void displayStudents(student students[1000]);
-void searchStudentByName(student students[1000]);
-void searchStudentByRoll(student students[1000]);
-void deleteStudent(student students[1000]);
-void updateStudent(student students[1000]);
+#include "student.h"
+#include "file_handler.h"
 int count_of_std = 0;
-
-int main()
-{
-    student students[1000];
-
-    loadFromFile(students);
-
-    int choice;
-
-    do
-    {
-        printMenu();
-        choice = scanMenu();
-
-        if (choice == 1)
-        {
-            if (count_of_std < 1000)
-            {
-                addStudent(students);
-            }
-            else
-            {
-                printf("Database is full, Can't add more students!\n");
-            }
-        }
-        if (choice == 2)
-        {
-            displayStudents(students);
-        }
-
-        if (choice == 3)
-        {
-            searchStudentByName(students);
-        }
-        if (choice == 4)
-        {
-            searchStudentByRoll(students);
-        }
-        if (choice == 5)
-        {
-            deleteStudent(students);
-        }
-        if (choice == 6)
-        {
-            updateStudent(students);
-        }
-
-    } while (choice != 0);
-
-    return 0;
-}
-
-void loadFromFile(student students[1000])
-{
-    FILE *fptr;
-    fptr = fopen("student_data.dat", "rb");
-
-    if (fptr != NULL)
-    {
-        while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
-        {
-            count_of_std++;
-        }
-
-        fclose(fptr);
-        fptr = NULL;
-    } else {
-        fptr = fopen("student_data.dat", "wb");
-        fclose(fptr);
-        fptr = NULL;
-    }
-     
-}
-
-void saveToFile(student students[1000])
-{
-    FILE *fptr;
-    fptr = fopen("student_data.dat", "wb");
-
-    if (fptr != NULL)
-    {
-        fwrite(students, sizeof(student), count_of_std, fptr);
-         
-
-        fclose(fptr);
-        fptr = NULL;
-    }
-    else
-    {
-        printf("File not found!");
-    }
-}
-
-void printMenu()
-{
-
-    printf("1: Add students\n");
-    printf("2: Display students\n");
-    printf("3: Search student By Name\n");
-    printf("4: Search student By Roll\n");
-    printf("5: Delete student\n");
-    printf("6: Update student\n");
-    printf("0: Exit\n");
-}
-
-int scanMenu()
-{
-    int choice;
-
-    printf("Enter your choice serial no: ");
-    scanf("%d", &choice);
-
-    return choice;
-}
 
 void addStudent(student students[1000])
 {
@@ -297,6 +167,7 @@ void searchStudentByRoll(student students[1000])
         }
     } while (roll != 0);
 }
+
 void deleteStudent(student students[1000])
 {
     int roll;
