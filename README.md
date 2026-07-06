@@ -72,14 +72,19 @@ This project is being upgraded version by version:
 
 ## 📂 Data Storage
 
-* Student data is stored in a binary file:
+- Student data is stored in the binary file:
 
-  ```
+  ```text
   data/student_data.dat
   ```
 
-* The file is automatically created if it does not exist.
-* Data persists even after program exit.
+- The `data/` directory is tracked using `.gitkeep`.
+
+- The file is automatically created if it does not exist.
+
+- `student_data.dat` is ignored by Git and is not included in the repository.
+
+- Data persists even after the program exits.
 
 ---
 
@@ -124,7 +129,6 @@ sms.exe
 ```
 
 ---
-
 ## 📁 Project Structure
 
 ```text
@@ -142,7 +146,8 @@ Student-Management-System/
 │   └── menu.h
 │
 ├── data/
-│   └── student_data.dat
+│   ├── .gitkeep
+│   └── student_data.dat   (generated automatically at runtime)
 │
 ├── README.md
 └── .gitignore
