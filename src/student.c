@@ -3,6 +3,7 @@
 
 #include "student.h"
 #include "file_handler.h"
+#include "input.h"
 int count_of_std = 0;
 
 void addStudent(student students[1000])
@@ -12,8 +13,7 @@ void addStudent(student students[1000])
 
     do
     {
-        printf("Enter the name of student to add(Enter done if done adding): ");
-        scanf(" %33s", name);
+        readString("Enter the name of student to add(Enter done if done adding): ", name, 33);
 
         if (strcmp(name, "done") == 0)
         {
@@ -27,6 +27,7 @@ void addStudent(student students[1000])
 
             printf("Enter the roll no: ");
             scanf("%d", &roll);
+            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
             if (roll < 1)
             {
@@ -55,6 +56,7 @@ void addStudent(student students[1000])
 
         printf("Enter his marks(%%): ");
         scanf("%f", &(students[count_of_std].marks));
+        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
         count_of_std++;
         saveToFile(students);
@@ -82,8 +84,7 @@ void displayStudents(student students[1000])
         {
             printf("No students added yet!\n");
         }
-        printf("\nEnter done to go to main menu: ");
-        scanf(" %33s", name);
+        readString("\nEnter done to go to main menu: ", name, 33);
     } while (strcmp(name, "done") != 0);
 }
 
@@ -100,8 +101,7 @@ void searchStudentByName(student students[1000])
     {
         int isFound = 0;
 
-        printf("Enter the name of student you want to search(Enter done if done sarching): ");
-        scanf(" %33s", name);
+        readString("Enter the name of student you want to search(Enter done if done sarching): ", name, 33);
 
         if (strcmp(name, "done") == 0)
         {
@@ -142,6 +142,7 @@ void searchStudentByRoll(student students[1000])
 
         printf("Enter the roll no. of student you want to search(Enter 0 if done sarching): ");
         scanf("%d", &roll);
+        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
         if (roll == 0)
         {
@@ -184,6 +185,7 @@ void deleteStudent(student students[1000])
         int isFound = 0;
         printf("Enter the roll no. of student to delete(Enter 0 if done deleting): ");
         scanf("%d", &roll);
+        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
         if (roll == 0)
         {
@@ -210,6 +212,7 @@ void deleteStudent(student students[1000])
 
             printf("\nConfirm Deletion? (y/n): ");
             scanf(" %c", &confirmation);
+            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
             if (confirmation == 'y')
             {
@@ -256,6 +259,7 @@ void updateStudent(student students[1000])
 
         printf("Enter the roll no. of student you want to update(Enter 0 if done sarching): ");
         scanf("%d", &roll);
+        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
         if (roll == 0)
         {
@@ -277,8 +281,8 @@ void updateStudent(student students[1000])
             printf("Name : %s\n", students[index].name);
             printf("Roll : %d\n", students[index].roll);
             printf("Marks: %.2f %%\n", students[index].marks);
-            printf("Enter the new name: ");
-            scanf(" %33s", new_name);
+            
+            readString("Enter the new name: ", new_name, 33);
 
             do
             {
@@ -286,6 +290,7 @@ void updateStudent(student students[1000])
 
                 printf("Enter the new roll no: ");
                 scanf("%d", &new_roll);
+                clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
                 if (new_roll < 1)
                 {
@@ -312,6 +317,7 @@ void updateStudent(student students[1000])
 
             printf("Enter the new marks(%%): ");
             scanf("%f", &new_marks);
+            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
             printf("\n----- Confirm Update -----\n");
 
@@ -327,6 +333,8 @@ void updateStudent(student students[1000])
 
             printf("\nConfirm update? (y/n): ");
             scanf(" %c", &confirmation);
+            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+
 
             if (confirmation == 'y')
             {

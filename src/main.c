@@ -4,6 +4,7 @@
 #include "file_handler.h"
 #include "student.h"
 #include "menu.h"
+#include "input.h"
 
 int main()
 {

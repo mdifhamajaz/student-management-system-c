@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+#include "menu.h"
+#include "input.h"
+
 void printMenu()
 {
 
@@ -18,6 +21,7 @@ int scanMenu()
 
     printf("Enter your choice serial no: ");
     scanf("%d", &choice);
+    clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
 
     return choice;
 }
