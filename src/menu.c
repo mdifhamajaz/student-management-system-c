@@ -19,9 +19,7 @@ int scanMenu()
 {
     int choice;
 
-    printf("Enter your choice serial no: ");
-    scanf("%d", &choice);
-    clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+    choice = readInt("Enter your choice serial no: ");
 
     return choice;
 }

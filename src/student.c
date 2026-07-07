@@ -25,9 +25,7 @@ void addStudent(student students[1000])
         {
             int isDuplicate = 0;
 
-            printf("Enter the roll no: ");
-            scanf("%d", &roll);
-            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+            roll = readInt("Enter the roll no: ");
 
             if (roll < 1)
             {
@@ -140,9 +138,7 @@ void searchStudentByRoll(student students[1000])
     {
         int isFound = 0;
 
-        printf("Enter the roll no. of student you want to search(Enter 0 if done sarching): ");
-        scanf("%d", &roll);
-        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+        roll = readInt("Enter the roll no. of student you want to search(Enter 0 if done searching): ");
 
         if (roll == 0)
         {
@@ -183,9 +179,7 @@ void deleteStudent(student students[1000])
     do
     {
         int isFound = 0;
-        printf("Enter the roll no. of student to delete(Enter 0 if done deleting): ");
-        scanf("%d", &roll);
-        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+        roll = readInt("Enter the roll no. of student you want to delete(Enter 0 if done deleting): ");
 
         if (roll == 0)
         {
@@ -257,9 +251,7 @@ void updateStudent(student students[1000])
     {
         int isFound = 0;
 
-        printf("Enter the roll no. of student you want to update(Enter 0 if done sarching): ");
-        scanf("%d", &roll);
-        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+        roll = readInt("Enter the roll no. of student you want to update(Enter 0 if done updating): ");
 
         if (roll == 0)
         {
@@ -281,16 +273,14 @@ void updateStudent(student students[1000])
             printf("Name : %s\n", students[index].name);
             printf("Roll : %d\n", students[index].roll);
             printf("Marks: %.2f %%\n", students[index].marks);
-            
+
             readString("Enter the new name: ", new_name, 33);
 
             do
             {
                 int isDuplicate = 0;
 
-                printf("Enter the new roll no: ");
-                scanf("%d", &new_roll);
-                clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+                new_roll = readInt("Enter the new roll no: ");
 
                 if (new_roll < 1)
                 {
@@ -334,7 +324,6 @@ void updateStudent(student students[1000])
             printf("\nConfirm update? (y/n): ");
             scanf(" %c", &confirmation);
             clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
-
 
             if (confirmation == 'y')
             {
