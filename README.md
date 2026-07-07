@@ -11,11 +11,11 @@ This project is part of my C programming learning journey, where I continuously 
 
 Instead of building multiple small projects, I am evolving **one system step-by-step** to understand how real software grows over time and how maintainable code is developed.
 
-**Current Version: V2.1**
+**Current Version: V2.1.1**
 
 ---
 
-## 🚀 Features (V2.1)
+## 🚀 Features (V2.1.1)
 
 * ➕ Add student (Name, Roll Number, Marks)
 * 📋 Display all students
