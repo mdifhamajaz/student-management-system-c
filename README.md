@@ -1,7 +1,7 @@
 # 🎓 Student Management System (C Language)
 
 ![C](https://img.shields.io/badge/Language-C-blue)
-![Version](https://img.shields.io/badge/Version-2.1-green)
+![Version](https://img.shields.io/badge/Version-2.1.1-green)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)
 
