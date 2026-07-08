@@ -4,6 +4,7 @@
 #include "student.h"
 #include "file_handler.h"
 #include "input.h"
+#include "output.h"
 int count_of_std = 0;
 
 void addStudent(student students[1000])
@@ -80,12 +81,9 @@ void displayStudents(student students[1000])
     {
         if (count_of_std != 0)
         {
-            for (int i = 0; i < count_of_std; i++)
-            {
-                printf("%d: Name: %s\n", i + 1, students[i].name);
-                printf("   Roll: %d\n", students[i].roll);
-                printf("   Marks: %.2f %%\n", students[i].marks);
-            }
+            printHeader();
+            printStudentTable(students, count_of_std, 0);
+            
         }
         else
         {
@@ -108,7 +106,7 @@ void searchStudentByName(student students[1000])
     {
         int isFound = 0;
 
-        readString("Enter the name of student you want to search(Enter done if done sarching): ", name, 33);
+        readString("Enter the name of student you want to search(Enter done if done searching): ", name, 33);
 
         if (strcmp(name, "done") == 0)
         {
@@ -119,10 +117,10 @@ void searchStudentByName(student students[1000])
         {
             if (strcmp(name, students[i].name) == 0)
             {
+                student result = students[i];
                 printf("\nMatch Found:\n");
-                printf("Name : %s\n", students[i].name);
-                printf("Roll : %d\n", students[i].roll);
-                printf("Marks: %.2f %%\n", students[i].marks);
+                printHeader();
+                printStudentTable(&result, 1, i);
 
                 isFound = 1;
             }
@@ -339,7 +337,7 @@ void updateStudent(student students[1000])
 
           
 
-             readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
+            readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
 
             if (strcmp(confirmation, "yes") == 0)
             {
