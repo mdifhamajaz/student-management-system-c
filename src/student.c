@@ -177,7 +177,7 @@ void searchStudentByRoll(student students[1000])
 void deleteStudent(student students[1000])
 {
     int roll;
-    char confirmation;
+    char confirmation[10];
     int index = 0;
     if (count_of_std == 0)
     {
@@ -213,11 +213,9 @@ void deleteStudent(student students[1000])
             printf("Roll : %d\n", students[index].roll);
             printf("Marks: %.2f %%\n", students[index].marks);
 
-            printf("\nConfirm Deletion? (y/n): ");
-            scanf(" %c", &confirmation);
-            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+            readString("\nDelete this student?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
 
-            if (confirmation == 'y')
+            if (strcmp(confirmation, "yes") == 0)
             {
 
                 for (int i = index; i < count_of_std - 1; i++)
@@ -250,7 +248,7 @@ void updateStudent(student students[1000])
     float new_marks;
 
     int index = 0;
-    char confirmation;
+    char confirmation[10];
     if (count_of_std == 0)
     {
         printf("No students available!\n\n");
@@ -339,11 +337,11 @@ void updateStudent(student students[1000])
             printf("Roll : %d\n", new_roll);
             printf("Marks: %.2f %%\n", new_marks);
 
-            printf("\nConfirm update? (y/n): ");
-            scanf(" %c", &confirmation);
-            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+          
 
-            if (confirmation == 'y')
+             readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
+
+            if (strcmp(confirmation, "yes") == 0)
             {
                 strcpy(students[index].name, new_name);
                 students[index].roll = new_roll;
