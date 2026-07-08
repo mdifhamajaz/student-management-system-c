@@ -51,10 +51,19 @@ void addStudent(student students[1000])
         } while (1);
 
         students[count_of_std].roll = roll;
-
-        printf("Enter his marks(%%): ");
-        scanf("%f", &(students[count_of_std].marks));
-        clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+        do
+        {
+            float marks = readFloat("Enter his marks(%): ");
+            if (marks > 100 || marks < 0)
+            {
+                printf("Marks must be between 0 to 100.\n");
+            }
+            else
+            {
+                students[count_of_std].marks = marks;
+                break;
+            }
+        } while (1);
 
         count_of_std++;
         saveToFile(students);
@@ -305,9 +314,18 @@ void updateStudent(student students[1000])
 
             } while (1);
 
-            printf("Enter the new marks(%%): ");
-            scanf("%f", &new_marks);
-            clearInputBuffer(); // TODO: Remove after all scanf() calls are replaced
+            do
+            {
+                new_marks = readFloat("Enter the new marks(%): ");
+                if (new_marks > 100 || new_marks < 0)
+                {
+                    printf("Marks must be between 0 to 100.\n");
+                }
+                else
+                {
+                    break;
+                }
+            } while (1);
 
             printf("\n----- Confirm Update -----\n");
 
