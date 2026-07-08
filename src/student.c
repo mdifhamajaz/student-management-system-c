@@ -82,8 +82,7 @@ void displayStudents(student students[1000])
         if (count_of_std != 0)
         {
             printHeader();
-            printStudentTable(students, count_of_std, 0);
-            
+            printStudentTable(students, count_of_std);
         }
         else
         {
@@ -104,7 +103,6 @@ void searchStudentByName(student students[1000])
 
     do
     {
-        int isFound = 0;
 
         readString("Enter the name of student you want to search(Enter done if done searching): ", name, 33);
 
@@ -113,23 +111,29 @@ void searchStudentByName(student students[1000])
             break;
         }
 
+        student results[1000];
+        int resultCount = 0;
+
         for (int i = 0; i < count_of_std; i++)
         {
             if (strcmp(name, students[i].name) == 0)
             {
-                student result = students[i];
-                printf("\nMatch Found:\n");
-                printHeader();
-                printStudentTable(&result, 1, i);
-
-                isFound = 1;
+                results[resultCount] = students[i];
+                resultCount++;
             }
         }
 
-        if (!isFound)
+        if (resultCount > 0)
         {
-            printf("No student found with this name\n");
+            printf("\nMatch Found:\n");
+            printHeader();
+            printStudentTable(results, resultCount);
         }
+        else
+        {
+            printf("No student found.\n");
+        }
+
     } while (strcmp(name, "done") != 0);
 }
 void searchStudentByRoll(student students[1000])
@@ -334,8 +338,6 @@ void updateStudent(student students[1000])
             printf("Name : %s\n", new_name);
             printf("Roll : %d\n", new_roll);
             printf("Marks: %.2f %%\n", new_marks);
-
-          
 
             readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
 

@@ -5,7 +5,7 @@
 
 void printHeader(void);
 void printSeparator(void);
-void printStudentTable(student students[], int count, int startIndex);
+void printStudentTable(student students[], int count);
 
 
 #endif

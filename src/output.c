@@ -15,12 +15,12 @@ void printSeparator(void)
     printf("+-------+------+---------------+--------+\n");
 }
 
-void printStudentTable(student students[], int count, int startIndex)
+void printStudentTable(student students[], int count)
 {
     for (int i = 0; i < count; i++)
     {
         printf("| %-5d | %-4d | %-13s | %-6.2f |\n",
-               startIndex + i + 1,
+               i + 1,
                students[i].roll,
                students[i].name,
                students[i].marks);
