@@ -160,19 +160,19 @@ void searchStudentByRoll(student students[1000])
         {
             if (roll == students[i].roll)
             {
-                printf("\nMatch Found:\n");
-                printf("Name : %s\n", students[i].name);
-                printf("Roll : %d\n", students[i].roll);
-                printf("Marks: %.2f %%\n", students[i].marks);
 
+                printf("\nStudent Found:\n");
+                printHeader();
+                printStudentTable(&students[i], 1);
                 isFound = 1;
+                break;
             }
         }
-
         if (!isFound)
         {
-            printf("No student found with this roll no.\n");
+            printf("No student found.\n");
         }
+
     } while (roll != 0);
 }
 
@@ -208,12 +208,11 @@ void deleteStudent(student students[1000])
         }
         if (isFound)
         {
-            printf("\n----- Confirm Deletion -----\n");
+            printTableMessage("Confirm Deletion");
+            printf("The following student will be deleted:\n\n");
 
-            printf("STUDENT DATA:\n");
-            printf("Name : %s\n", students[index].name);
-            printf("Roll : %d\n", students[index].roll);
-            printf("Marks: %.2f %%\n", students[index].marks);
+            printHeader();
+            printStudentTable(&students[index], 1);
 
             readString("\nDelete this student?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
 
@@ -279,9 +278,8 @@ void updateStudent(student students[1000])
         if (isFound)
         {
             printf("OLD DATA:\n");
-            printf("Name : %s\n", students[index].name);
-            printf("Roll : %d\n", students[index].roll);
-            printf("Marks: %.2f %%\n", students[index].marks);
+            printHeader();
+            printStudentTable(&students[index], 1);
 
             readString("Enter the new name: ", new_name, 33);
 
@@ -327,17 +325,21 @@ void updateStudent(student students[1000])
                 }
             } while (1);
 
-            printf("\n----- Confirm Update -----\n");
+            printTableMessage("Confirm Update");
 
             printf("OLD DATA:\n");
-            printf("Name : %s\n", students[index].name);
-            printf("Roll : %d\n", students[index].roll);
-            printf("Marks: %.2f %%\n", students[index].marks);
+            printHeader();
+            printStudentTable(&students[index], 1);
+
+            student newData;
+            strcpy(newData.name, new_name);
+            newData.marks = new_marks;
+            newData.roll = new_roll;
+
 
             printf("\nNEW DATA:\n");
-            printf("Name : %s\n", new_name);
-            printf("Roll : %d\n", new_roll);
-            printf("Marks: %.2f %%\n", new_marks);
+            printHeader();
+            printStudentTable(&newData, 1);
 
             readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
 

@@ -6,6 +6,7 @@
 void printHeader(void);
 void printSeparator(void);
 void printStudentTable(student students[], int count);
+void printTableMessage(const char *message);
 
 
 #endif
