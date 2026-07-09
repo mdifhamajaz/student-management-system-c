@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "menu.h"
 #include "input.h"
+#include "command.h"
 
 void printMenu()
 {
@@ -18,9 +20,23 @@ void printMenu()
 
 int scanMenu()
 {
+    char input[10];
     int choice;
 
-    choice = readInt("Enter your choice: ");
+    while (1)
+    {
+        readString("Enter your choice: ", input, sizeof(input));
 
-    return choice;
+        if (isExitCommand(input) || isBackCommand(input))
+        {
+            exit(EXIT_SUCCESS);
+        }
+
+        if (parseInt(input, &choice))
+        {
+            return choice;
+        }
+
+        printf("Invalid input. Please enter a number or a command(back/exit).\n");
+    }
 }

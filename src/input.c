@@ -14,35 +14,25 @@ void readString(const char *prompt, char *buffer, int size)
     buffer[strcspn(buffer, "\n")] = '\0';
 }
 
-int readInt(const char *prompt)
+int parseInt(char *input, int *value)
 {
-    char str[34];
     char *endPtr;
-    long value;
+    long result;
 
-    while (1)
-    {
-        readString(prompt, str, sizeof(str));
-        errno = 0;
-        value = strtol(str, &endPtr, 10);
-        if (errno == ERANGE)
-        {
-            printf("Number out of range.\n");
-            continue;
-        }
-        if (value > INT_MAX || value < INT_MIN)
-        {
-            printf("Number is outside int range.\n");
-            continue;
-        }
-        if (endPtr != str && *endPtr == '\0')
-        {
-            return (int)value;
-        }
-        printf("Invalid input. Please try again.\n");
-    }
+    errno = 0;
+    result = strtol(input, &endPtr, 10);
+
+    if (errno == ERANGE || result > INT_MAX || result < INT_MIN)
+        return 0;
+
+    if (endPtr == input || *endPtr != '\0')
+        return 0;
+
+    *value = (int)result;
+    return 1;
 }
 
+ 
 float readFloat(const char *prompt)
 {
     char str[34];
