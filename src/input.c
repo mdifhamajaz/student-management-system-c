@@ -32,33 +32,21 @@ int parseInt(char *input, int *value)
     return 1;
 }
 
- 
-float readFloat(const char *prompt)
+int parseFloat(char *input, float *value)
 {
-    char str[34];
     char *endPtr;
-    double value;
+    double result;
 
-    while (1)
-    {
-        readString(prompt, str, sizeof(str));
-        errno = 0;
-        value = strtod(str, &endPtr);
-        if (errno == ERANGE)
-        {
-            printf("Number out of range.\n");
-            continue;
-        }
-        if (value > FLT_MAX || value < -FLT_MAX)
-        {
-            printf("Number is outside float range.\n");
-            continue;
-        }
+    errno = 0;
+    result = strtod(input, &endPtr);
+    if (errno == ERANGE || result > INT_MAX || result < INT_MIN)
+        return 0;
 
-        if (endPtr != str && *endPtr == '\0')
-        {
-            return (float)value;
-        }
-        printf("Invalid input. Please try again.\n");
-    }
+    if (endPtr == input || *endPtr != '\0')
+        return 0;
+
+    *value = (float)result;
+    return 1;
 }
+
+ 

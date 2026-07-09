@@ -13,10 +13,10 @@ void addStudent(student students[1000])
 {
 
     char name[34];
-    int toGoBack = 0;
-
+    
     do
     {
+        int toGoBack = 0;
         readString("Enter the name: ", name, 33);
         if (isBackCommand(name))
         {
@@ -49,7 +49,7 @@ void addStudent(student students[1000])
 
             if (!parseInt(input, &roll))
             {
-                printf("Invalid input. Please enter a number or a command(back/exit).\n");
+                printf("Invalid input. Please enter a valid number or command.\n");
             }
             else
             {
@@ -83,17 +83,41 @@ void addStudent(student students[1000])
         students[count_of_std].roll = roll;
         do
         {
-            float marks = readFloat("Enter his marks(%): ");
-            if (marks > 100 || marks < 0)
+            float marks;
+            readString("Enter his marks(%): ", input, sizeof(input));
+
+            if (isExitCommand(input))
             {
-                printf("Marks must be between 0 to 100.\n");
+                exit(EXIT_SUCCESS);
+            }
+            if (isBackCommand(input))
+            {
+                toGoBack = 1;
+                break;
+            }
+
+            if (!parseFloat(input, &marks))
+            {
+                printf("Invalid input. Please enter a valid marks or command.\n");
             }
             else
             {
-                students[count_of_std].marks = marks;
-                break;
+
+                if (marks > 100 || marks < 0)
+                {
+                    printf("Marks must be between 0 to 100.\n");
+                }
+                else
+                {
+                    students[count_of_std].marks = marks;
+                    break;
+                }
             }
         } while (1);
+        if (toGoBack)
+        {
+            break;
+        }
 
         count_of_std++;
         saveToFile(students);
@@ -208,7 +232,7 @@ void searchStudentByRoll(student students[1000])
 
         if (!parseInt(input, &roll))
         {
-            printf("Invalid input. Please enter a number or a command(back/exit).\n");
+            printf("Invalid input. Please enter a valid number or command.\n");
         }
         else
         {
@@ -270,7 +294,7 @@ void deleteStudent(student students[1000])
 
         if (!parseInt(input, &roll))
         {
-            printf("Invalid input. Please enter a number or a command(back/exit).\n");
+            printf("Invalid input. Please enter a valid number or command.\n");
         }
         else
         {
@@ -346,8 +370,7 @@ void updateStudent(student students[1000])
     int new_roll;
     float new_marks;
     char input[10];
-    int toGoBack = 0;
-
+    
     int index = 0;
     char confirmation[10];
     if (count_of_std == 0)
@@ -357,6 +380,7 @@ void updateStudent(student students[1000])
     }
     do
     {
+        int toGoBack = 0;
         int isFound = 0;
         readString("Enter the roll no. of student you want to update: ", input, sizeof(input));
 
@@ -373,7 +397,7 @@ void updateStudent(student students[1000])
 
         if (!parseInt(input, &roll))
         {
-            printf("Invalid input. Please enter a number or a command(back/exit).\n");
+            printf("Invalid input. Please enter a valid number or command.\n");
         }
         else
         {
@@ -431,7 +455,7 @@ void updateStudent(student students[1000])
 
                         if (!parseInt(input, &new_roll))
                         {
-                            printf("Invalid input. Please enter a number or a command(back/exit).\n");
+                            printf("Invalid input. Please enter a valid number or command.\n");
                         }
                         else
                         {
@@ -470,16 +494,41 @@ void updateStudent(student students[1000])
 
                     do
                     {
-                        new_marks = readFloat("Enter the new marks(%): ");
-                        if (new_marks > 100 || new_marks < 0)
+
+                     
+                        readString("Enter the new marks(%): ", input, sizeof(input));
+
+                        if (isExitCommand(input))
                         {
-                            printf("Marks must be between 0 to 100.\n");
+                            exit(EXIT_SUCCESS);
+                        }
+                        if (isBackCommand(input))
+                        {
+                            toGoBack = 1;
+                            break;
+                        }
+
+                        if (!parseFloat(input, &new_marks))
+                        {
+                            printf("Invalid input. Please enter a valid marks or command.\n");
                         }
                         else
                         {
-                            break;
+
+                            if (new_marks > 100 || new_marks < 0)
+                            {
+                                printf("Marks must be between 0 to 100.\n");
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                     } while (1);
+                    if (toGoBack)
+                    {
+                        break;
+                    }
 
                     printTableMessage("Confirm Update");
 
