@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "student.h"
 #include "file_handler.h"
 #include "input.h"
 #include "output.h"
+#include "command.h"
 int count_of_std = 0;
 
 void addStudent(student students[1000])
@@ -14,12 +16,18 @@ void addStudent(student students[1000])
 
     do
     {
-        readString("Enter the name of student to add(Enter done if done adding): ", name, 33);
-
-        if (strcmp(name, "done") == 0)
+        readString("Enter the name of student to add(Enter back if done adding): ", name, 33);
+        if (isBackCommand(name))
         {
             break;
         }
+
+        if (isExitCommand(name))
+        {
+            exit(EXIT_SUCCESS);
+        }
+        
+
         strcpy(students[count_of_std].name, name);
         int roll;
         do
@@ -70,7 +78,7 @@ void addStudent(student students[1000])
         saveToFile(students);
 
         printf("Added %s\n", name);
-    } while (strcmp(name, "done") != 0);
+    } while (1);
 }
 
 void displayStudents(student students[1000])
@@ -335,7 +343,6 @@ void updateStudent(student students[1000])
             strcpy(newData.name, new_name);
             newData.marks = new_marks;
             newData.roll = new_roll;
-
 
             printf("\nNEW DATA:\n");
             printHeader();

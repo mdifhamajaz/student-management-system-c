@@ -5,13 +5,15 @@
 #include "student.h"
 #include "menu.h"
 #include "input.h"
+#include "ui.h"
 
 int main()
 {
+    printWelcome();
+    waitForEnter();
     student students[1000];
 
     loadFromFile(students);
-
     int choice;
 
     do
