@@ -3,10 +3,12 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+
+
 typedef struct
 {
 
-    char name[34];
+    char name[33];
     int roll;
     float marks;
 } student;

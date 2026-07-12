@@ -7,17 +7,20 @@
 #include "input.h"
 #include "output.h"
 #include "command.h"
+
+#define NAME_LENGTH 33
+
 int count_of_std = 0;
 
 void addStudent(student students[1000])
 {
 
-    char name[34];
+    char name[NAME_LENGTH];
     
     do
     {
         int toGoBack = 0;
-        readString("Enter the name: ", name, 33);
+        readString("Enter the name: ", name, sizeof(name));
         if (isBackCommand(name))
         {
             break;
@@ -128,7 +131,7 @@ void addStudent(student students[1000])
 
 void displayStudents(student students[1000])
 {
-    char name[34];
+    char name[NAME_LENGTH];
 
     do
     {
@@ -141,7 +144,7 @@ void displayStudents(student students[1000])
         {
             printf("No students added yet!\n");
         }
-        readString("\nEnter a command back/exit: ", name, 33);
+        readString("\nEnter a command back/exit: ", name, sizeof(name));
         if (isBackCommand(name))
         {
             break;
@@ -157,7 +160,7 @@ void displayStudents(student students[1000])
 
 void searchStudentByName(student students[1000])
 {
-    char name[34];
+    char name[NAME_LENGTH];
     if (count_of_std == 0)
     {
         printf("No students available!\n\n");
@@ -167,7 +170,7 @@ void searchStudentByName(student students[1000])
     do
     {
 
-        readString("Enter the name of student you want to search: ", name, 33);
+        readString("Enter the name of student you want to search: ", name, sizeof(name));
 
         if (isBackCommand(name))
         {
@@ -366,7 +369,7 @@ void deleteStudent(student students[1000])
 void updateStudent(student students[1000])
 {
     int roll;
-    char new_name[34];
+    char new_name[NAME_LENGTH];
     int new_roll;
     float new_marks;
     char input[10];
