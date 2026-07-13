@@ -10,8 +10,21 @@
 void readString(const char *prompt, char *buffer, int size)
 {
     printf("%s", prompt);
-    fgets(buffer, size, stdin);
-    buffer[strcspn(buffer, "\n")] = '\0';
+    if (fgets(buffer, size, stdin) != NULL)
+    {
+
+        char *newline = strchr(buffer, '\n');
+        if (newline != NULL)
+        {
+            *newline = '\0';
+        }
+        else
+        {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF)
+                ;
+        }
+    }
 }
 
 int parseInt(char *input, int *value)
@@ -48,5 +61,3 @@ int parseFloat(char *input, float *value)
     *value = (float)result;
     return 1;
 }
-
- 
