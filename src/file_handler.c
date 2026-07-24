@@ -16,19 +16,28 @@ void loadFromFile(student *students)
             if (count_of_std >= student_capacity)
             {
                 student_capacity *= 2;
-                students = realloc(students, student_capacity * sizeof(student));
+                student *temp = realloc(students, student_capacity * sizeof(student));
+
+                if (temp == NULL)
+                {
+                    printf("Memory allocation failed.\n");
+                    free(students);
+                    exit(EXIT_FAILURE);
+                }
+
+                students = temp;
             }
-            
         }
 
         fclose(fptr);
         fptr = NULL;
-    } else {
+    }
+    else
+    {
         fptr = fopen("data/student_data.dat", "wb");
         fclose(fptr);
         fptr = NULL;
     }
-     
 }
 
 void saveToFile(student *students)
@@ -39,7 +48,6 @@ void saveToFile(student *students)
     if (fptr != NULL)
     {
         fwrite(students, sizeof(student), count_of_std, fptr);
-         
 
         fclose(fptr);
         fptr = NULL;

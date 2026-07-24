@@ -18,12 +18,22 @@ void addStudent(student *students)
 {
 
     char name[NAME_LENGTH];
-    
+
     do
     {
-        if(count_of_std >= student_capacity){
+        if (count_of_std >= student_capacity)
+        {
             student_capacity *= 2;
-            students = realloc(students, student_capacity * sizeof(student));
+            student *temp = realloc(students, student_capacity * sizeof(student));
+
+            if (temp == NULL)
+            {
+                printf("Memory allocation failed.\n");
+                free(students);
+                exit(EXIT_FAILURE);
+            }
+
+            students = temp;
         }
         int toGoBack = 0;
         readString("Enter the name: ", name, sizeof(name));
@@ -379,7 +389,7 @@ void updateStudent(student *students)
     int new_roll;
     float new_marks;
     char input[10];
-    
+
     int index = 0;
     char confirmation[10];
     if (count_of_std == 0)
@@ -504,7 +514,6 @@ void updateStudent(student *students)
                     do
                     {
 
-                     
                         readString("Enter the new marks(%): ", input, sizeof(input));
 
                         if (isExitCommand(input))
