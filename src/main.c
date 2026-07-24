@@ -51,5 +51,8 @@ int main()
 
     } while (choice != 0);
 
+    free(students);
+    students = NULL;
+
     return 0;
 }
