@@ -44,6 +44,7 @@ void addStudent(student *students)
 
         if (isExitCommand(name))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -57,6 +58,7 @@ void addStudent(student *students)
 
             if (isExitCommand(input))
             {
+                free(students);
                 exit(EXIT_SUCCESS);
             }
 
@@ -107,6 +109,7 @@ void addStudent(student *students)
 
             if (isExitCommand(input))
             {
+                free(students);
                 exit(EXIT_SUCCESS);
             }
             if (isBackCommand(input))
@@ -168,6 +171,7 @@ void displayStudents(student *students)
 
         if (isExitCommand(name))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -195,6 +199,7 @@ void searchStudentByName(student *students)
 
         if (isExitCommand(name))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -241,6 +246,7 @@ void searchStudentByRoll(student *students)
 
         if (isExitCommand(input))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -303,6 +309,7 @@ void deleteStudent(student *students)
 
         if (isExitCommand(input))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -346,6 +353,7 @@ void deleteStudent(student *students)
 
                     if (isExitCommand(confirmation))
                     {
+                        free(students);
                         exit(EXIT_SUCCESS);
                     }
 
@@ -405,6 +413,7 @@ void updateStudent(student *students)
 
         if (isExitCommand(input))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
@@ -446,6 +455,7 @@ void updateStudent(student *students)
 
                     if (isExitCommand(new_name))
                     {
+                        free(students);
                         exit(EXIT_SUCCESS);
                     }
 
@@ -463,6 +473,7 @@ void updateStudent(student *students)
 
                         if (isExitCommand(input))
                         {
+                            free(students);
                             exit(EXIT_SUCCESS);
                         }
 
@@ -518,6 +529,7 @@ void updateStudent(student *students)
 
                         if (isExitCommand(input))
                         {
+                            free(students);
                             exit(EXIT_SUCCESS);
                         }
                         if (isBackCommand(input))
@@ -566,6 +578,7 @@ void updateStudent(student *students)
                     readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
                     if (isExitCommand(confirmation))
                     {
+                        free(students);
                         exit(EXIT_SUCCESS);
                     }
 
