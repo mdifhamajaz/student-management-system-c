@@ -9,16 +9,22 @@
 #include "command.h"
 
 #define NAME_LENGTH 33
+#define INITIAL_CAPACITY 10
 
 int count_of_std = 0;
+int student_capacity = INITIAL_CAPACITY;
 
-void addStudent(student students[1000])
+void addStudent(student *students)
 {
 
     char name[NAME_LENGTH];
     
     do
     {
+        if(count_of_std >= student_capacity){
+            student_capacity *= 2;
+            students = realloc(students, student_capacity * sizeof(student));
+        }
         int toGoBack = 0;
         readString("Enter the name: ", name, sizeof(name));
         if (isBackCommand(name))
@@ -129,7 +135,7 @@ void addStudent(student students[1000])
     } while (1);
 }
 
-void displayStudents(student students[1000])
+void displayStudents(student *students)
 {
     char name[NAME_LENGTH];
 
@@ -158,7 +164,7 @@ void displayStudents(student students[1000])
     } while (1);
 }
 
-void searchStudentByName(student students[1000])
+void searchStudentByName(student *students)
 {
     char name[NAME_LENGTH];
     if (count_of_std == 0)
@@ -207,7 +213,7 @@ void searchStudentByName(student students[1000])
 
     } while (1);
 }
-void searchStudentByRoll(student students[1000])
+void searchStudentByRoll(student *students)
 {
     int roll;
     char input[10];
@@ -268,7 +274,7 @@ void searchStudentByRoll(student students[1000])
     } while (1);
 }
 
-void deleteStudent(student students[1000])
+void deleteStudent(student *students)
 {
     int roll;
     char input[10];
@@ -366,7 +372,7 @@ void deleteStudent(student students[1000])
     } while (1);
 }
 
-void updateStudent(student students[1000])
+void updateStudent(student *students)
 {
     int roll;
     char new_name[NAME_LENGTH];

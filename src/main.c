@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "file_handler.h"
 #include "student.h"
@@ -11,7 +12,7 @@ int main()
 {
     printWelcome();
     waitForEnter();
-    student students[1000];
+    student *students = malloc(student_capacity * sizeof(student));
 
     loadFromFile(students);
     int choice;
@@ -23,14 +24,8 @@ int main()
 
         if (choice == 1)
         {
-            if (count_of_std < 1000)
-            {
-                addStudent(students);
-            }
-            else
-            {
-                printf("Database is full, Can't add more students!\n");
-            }
+
+            addStudent(students);
         }
         if (choice == 2)
         {

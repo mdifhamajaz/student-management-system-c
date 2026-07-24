@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "file_handler.h"
 #include "student.h"
-void loadFromFile(student students[1000])
+void loadFromFile(student *students)
 {
     FILE *fptr;
     fptr = fopen("data/student_data.dat", "rb");
@@ -12,6 +13,12 @@ void loadFromFile(student students[1000])
         while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
         {
             count_of_std++;
+            if (count_of_std >= student_capacity)
+            {
+                student_capacity *= 2;
+                students = realloc(students, student_capacity * sizeof(student));
+            }
+            
         }
 
         fclose(fptr);
@@ -24,7 +31,7 @@ void loadFromFile(student students[1000])
      
 }
 
-void saveToFile(student students[1000])
+void saveToFile(student *students)
 {
     FILE *fptr;
     fptr = fopen("data/student_data.dat", "wb");
