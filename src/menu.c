@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "input.h"
 #include "command.h"
+#include "student.h"
 
 void printMenu()
 {
@@ -18,7 +19,7 @@ void printMenu()
     printf("==========================================\n\n");
 }
 
-int scanMenu()
+int scanMenu(student *students)
 {
     char input[10];
     int choice;
@@ -29,6 +30,7 @@ int scanMenu()
 
         if (isExitCommand(input) || isBackCommand(input))
         {
+            free(students);
             exit(EXIT_SUCCESS);
         }
 
