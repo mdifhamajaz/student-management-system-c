@@ -602,7 +602,11 @@ void showToppers(student *students)
 {
     if (count_of_std != 0)
     {
-        student *topperList = malloc(student_capacity * sizeof(student));
+        int topCount = 3;
+        if(topCount > count_of_std) {
+            topCount = count_of_std;
+        }
+        student *topperList = malloc(count_of_std * sizeof(student));
         if (topperList == NULL)
         {
             printf("Memory allocation failed.\n");
@@ -614,10 +618,13 @@ void showToppers(student *students)
             topperList[i] = students[i];
         }
 
-        sortByMarksDescending(topperList, 3);
+        sortByMarksDescending(topperList, topCount);
 
+        printf("==========================================\n");
+        printf("              Top Performers\n");
+        printf("==========================================\n\n");
         printHeader("Rank");
-        printStudentTable(topperList, 3);
+        printStudentTable(topperList, topCount);
 
         free(topperList);
     }
