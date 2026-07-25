@@ -8,6 +8,7 @@
 #include "output.h"
 #include "command.h"
 #include "sorting.h"
+#include "ui.h"
 
 #define NAME_LENGTH 33
 #define INITIAL_CAPACITY 10
@@ -612,22 +613,30 @@ void updateStudent(student *students)
 
 void showToppers(student *students)
 {
-    student *topperList = malloc(student_capacity * sizeof(student));
-    if (topperList == NULL)
+    if (count_of_std != 0)
     {
-        printf("Memory allocation failed.\n");
-        return;
-    }
+        student *topperList = malloc(student_capacity * sizeof(student));
+        if (topperList == NULL)
+        {
+            printf("Memory allocation failed.\n");
+            return;
+        }
 
-    for (int i = 0; i < count_of_std; i++)
+        for (int i = 0; i < count_of_std; i++)
+        {
+            topperList[i] = students[i];
+        }
+
+        sortByMarksDescending(topperList, 3);
+
+        printHeader();
+        printStudentTable(topperList, 3);
+
+        free(topperList);
+    }
+    else
     {
-        topperList[i] = students[i];
+        printf("No students added yet!\n");
     }
-
-    sortByMarksDescending(topperList, 3);
-
-    printHeader();
-    printStudentTable(topperList, 3);
-
-    free(topperList);
+    waitForEnter();
 }
