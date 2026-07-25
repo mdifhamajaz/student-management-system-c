@@ -21,5 +21,6 @@ void searchStudentByName(student *students);
 void searchStudentByRoll(student *students);
 void deleteStudent(student *students);
 void updateStudent(student *students);
+void showToppers(student *students);
 
 #endif

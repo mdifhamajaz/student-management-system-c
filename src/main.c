@@ -48,7 +48,10 @@ int main()
         {
             updateStudent(students);
         }
-
+        if (choice == 7)
+        {
+            showToppers(students);
+        }
     } while (choice != 0);
 
     free(students);

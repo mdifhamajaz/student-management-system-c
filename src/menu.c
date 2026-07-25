@@ -15,6 +15,7 @@ void printMenu()
     printf("4: Search student By Roll\n");
     printf("5: Delete student\n");
     printf("6: Update student\n");
+    printf("7: Show toppers\n");
     printf("0: Exit\n");
     printf("==========================================\n\n");
 }
