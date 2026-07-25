@@ -14,7 +14,7 @@
 int count_of_std = 0;
 int student_capacity = INITIAL_CAPACITY;
 
-void addStudent(student *students)
+void addStudent(student **students)
 {
 
     char name[NAME_LENGTH];
@@ -24,16 +24,16 @@ void addStudent(student *students)
         if (count_of_std >= student_capacity)
         {
             student_capacity *= 2;
-            student *temp = realloc(students, student_capacity * sizeof(student));
+            student *temp = realloc(*students, student_capacity * sizeof(student));
 
             if (temp == NULL)
             {
                 printf("Memory allocation failed.\n");
-                free(students);
+                free(*students);
                 exit(EXIT_FAILURE);
             }
 
-            students = temp;
+            *students = temp;
         }
         int toGoBack = 0;
         readString("Enter the name: ", name, sizeof(name));
@@ -44,11 +44,11 @@ void addStudent(student *students)
 
         if (isExitCommand(name))
         {
-            free(students);
+            free(*students);
             exit(EXIT_SUCCESS);
         }
 
-        strcpy(students[count_of_std].name, name);
+        strcpy((*students)[count_of_std].name, name);
         int roll;
         char input[10];
         do
@@ -58,7 +58,7 @@ void addStudent(student *students)
 
             if (isExitCommand(input))
             {
-                free(students);
+                free(*students);
                 exit(EXIT_SUCCESS);
             }
 
@@ -84,7 +84,7 @@ void addStudent(student *students)
 
                     for (int i = 0; i < count_of_std; i++)
                     {
-                        if (students[i].roll == roll)
+                        if ((*students)[i].roll == roll)
                         {
                             isDuplicate = 1;
                             printf("Roll already exists! Try again.\n");
@@ -101,7 +101,7 @@ void addStudent(student *students)
         {
             break;
         }
-        students[count_of_std].roll = roll;
+        (*students)[count_of_std].roll = roll;
         do
         {
             float marks;
@@ -109,7 +109,7 @@ void addStudent(student *students)
 
             if (isExitCommand(input))
             {
-                free(students);
+                free(*students);
                 exit(EXIT_SUCCESS);
             }
             if (isBackCommand(input))
@@ -131,7 +131,7 @@ void addStudent(student *students)
                 }
                 else
                 {
-                    students[count_of_std].marks = marks;
+                    (*students)[count_of_std].marks = marks;
                     break;
                 }
             }
@@ -142,7 +142,7 @@ void addStudent(student *students)
         }
 
         count_of_std++;
-        saveToFile(students);
+        saveToFile(*students);
 
         printf("Added %s\n", name);
     } while (1);

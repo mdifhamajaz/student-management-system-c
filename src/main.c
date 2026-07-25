@@ -14,7 +14,7 @@ int main()
     waitForEnter();
     student *students = malloc(student_capacity * sizeof(student));
 
-    loadFromFile(students);
+    loadFromFile(&students);
     int choice;
 
     do
@@ -25,7 +25,7 @@ int main()
         if (choice == 1)
         {
 
-            addStudent(students);
+            addStudent(&students);
         }
         if (choice == 2)
         {
