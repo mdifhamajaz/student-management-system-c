@@ -156,7 +156,7 @@ void displayStudents(student *students)
 
     if (count_of_std != 0)
     {
-        printHeader();
+        printHeader("S.No.");
         printStudentTable(students, count_of_std);
     }
     else
@@ -207,7 +207,7 @@ void searchStudentByName(student *students)
         if (resultCount > 0)
         {
             printf("\nMatch Found:\n");
-            printHeader();
+            printHeader("S.No.");
             printStudentTable(results, resultCount);
         }
         else
@@ -263,7 +263,7 @@ void searchStudentByRoll(student *students)
                     {
 
                         printf("\nStudent Found:\n");
-                        printHeader();
+                        printHeader("S.No.");
                         printStudentTable(&students[i], 1);
                         isFound = 1;
                         break;
@@ -335,7 +335,7 @@ void deleteStudent(student *students)
                     printTableMessage("Confirm Deletion");
                     printf("The following student will be deleted:\n\n");
 
-                    printHeader();
+                    printHeader("S.No.");
                     printStudentTable(&students[index], 1);
 
                     readString("\nDelete this student?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
@@ -437,7 +437,7 @@ void updateStudent(student *students)
                 if (isFound)
                 {
                     printf("OLD DATA:\n");
-                    printHeader();
+                    printHeader("S.No.");
                     printStudentTable(&students[index], 1);
 
                     readString("Enter the new name: ", new_name, sizeof(new_name));
@@ -552,7 +552,7 @@ void updateStudent(student *students)
                     printTableMessage("Confirm Update");
 
                     printf("OLD DATA:\n");
-                    printHeader();
+                    printHeader("S.No.");
                     printStudentTable(&students[index], 1);
 
                     student newData;
@@ -561,7 +561,7 @@ void updateStudent(student *students)
                     newData.roll = new_roll;
 
                     printf("\nNEW DATA:\n");
-                    printHeader();
+                    printHeader("S.No.");
                     printStudentTable(&newData, 1);
 
                     readString("\nUpdate this student details?\nType 'yes' to confirm or 'no' to cancel\n>", confirmation, sizeof(confirmation));
@@ -616,7 +616,7 @@ void showToppers(student *students)
 
         sortByMarksDescending(topperList, 3);
 
-        printHeader();
+        printHeader("Rank");
         printStudentTable(topperList, 3);
 
         free(topperList);

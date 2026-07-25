@@ -3,7 +3,7 @@
 
 #include"student.h"
 
-void printHeader(void);
+void printHeader(const char *firstColumn);
 void printSeparator(void);
 void printStudentTable(student students[], int count);
 void printTableMessage(const char *message);

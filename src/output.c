@@ -4,10 +4,10 @@
 #include "output.h"
 #include "student.h"
 
-void printHeader(void)
+void printHeader(const char *firstColumn)
 {
     printSeparator();
-    printf("| %-5s | %-4s | %-14s | %-6s |\n", "S.No.", "Roll", "Name", "Marks");
+    printf("| %-5s | %-4s | %-14s | %-6s |\n", firstColumn, "Roll", "Name", "Marks");
     printSeparator();
 }
 
