@@ -154,30 +154,17 @@ void displayStudents(student *students)
 {
     char name[NAME_LENGTH];
 
-    do
+    if (count_of_std != 0)
     {
-        if (count_of_std != 0)
-        {
-            printHeader();
-            printStudentTable(students, count_of_std);
-        }
-        else
-        {
-            printf("No students added yet!\n");
-        }
-        readString("\nEnter a command back/exit: ", name, sizeof(name));
-        if (isBackCommand(name))
-        {
-            break;
-        }
+        printHeader();
+        printStudentTable(students, count_of_std);
+    }
+    else
+    {
+        printf("No students added yet!\n");
+    }
 
-        if (isExitCommand(name))
-        {
-            free(students);
-            exit(EXIT_SUCCESS);
-        }
-
-    } while (1);
+    waitForEnter();
 }
 
 void searchStudentByName(student *students)
