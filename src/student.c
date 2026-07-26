@@ -12,6 +12,7 @@
 
 #define NAME_LENGTH 33
 #define INITIAL_CAPACITY 10
+#define PASS_MARKS 33
 
 int count_of_std = 0;
 int student_capacity = INITIAL_CAPACITY;
@@ -603,7 +604,8 @@ void showToppers(student *students)
     if (count_of_std != 0)
     {
         int topCount = 3;
-        if(topCount > count_of_std) {
+        if (topCount > count_of_std)
+        {
             topCount = count_of_std;
         }
         student *topperList = malloc(count_of_std * sizeof(student));
@@ -633,4 +635,72 @@ void showToppers(student *students)
         printf("No students added yet!\n");
     }
     waitForEnter();
+}
+
+void showStats(student *students)
+{
+    if (count_of_std != 0)
+    {
+        int totalStudents = count_of_std;
+        float highestMarks = students[0].marks;
+        float lowestMarks = students[0].marks;
+        float totalMarks = 0;
+        float averageMarks = 0;
+        int passCount = 0;
+        int failCount = 0;
+        float passPercent = 0;
+        float failPercent = 0;
+
+        for (int i = 0; i < totalStudents; i++)
+        {
+            if (students[i].marks > highestMarks)
+            {
+                highestMarks = students[i].marks;
+            }
+
+            if (students[i].marks < lowestMarks)
+            {
+                lowestMarks = students[i].marks;
+            }
+
+            totalMarks += students[i].marks;
+
+            if (students[i].marks >= PASS_MARKS)
+            {
+                passCount++;
+            }
+        }
+        averageMarks = totalMarks / totalStudents;
+
+        failCount = totalStudents - passCount;
+
+        passPercent = ((float)passCount / totalStudents) * 100;
+
+        failPercent = 100 - passPercent;
+
+        printf("==========================================\n");
+        printf("                Statistics\n");
+        printf("==========================================\n\n");
+
+        printf("Total Students   : %d\n\n", totalStudents);
+
+        printf("Highest Marks    : %.2f\n", highestMarks);
+        printf("Lowest Marks     : %.2f\n\n", lowestMarks);
+
+        printf("Average Marks    : %.2f\n\n", averageMarks);
+
+        printf("Passed Students  : %d\n", passCount);
+        printf("Failed Students  : %d\n\n", failCount);
+
+        printf("Pass Percentage  : %.2f%%\n", passPercent);
+        printf("Fail Percentage  : %.2f%%\n", failPercent);
+
+        printf("\n==========================================\n\n");
+
+        waitForEnter();
+    }
+    else
+    {
+        printf("No students added yet!\n");
+    }
 }

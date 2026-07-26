@@ -52,6 +52,10 @@ int main()
         {
             showToppers(students);
         }
+        if (choice == 8)
+        {
+            showStats(students);
+        }
     } while (choice != 0);
 
     free(students);

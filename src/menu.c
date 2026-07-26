@@ -16,6 +16,7 @@ void printMenu()
     printf("5: Delete student\n");
     printf("6: Update student\n");
     printf("7: Show toppers\n");
+    printf("8: Show statistics\n");
     printf("0: Exit\n");
     printf("==========================================\n\n");
 }
