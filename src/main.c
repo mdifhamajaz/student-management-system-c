@@ -56,6 +56,11 @@ int main()
         {
             showStatistics(students);
         }
+        if(choice > 8 || choice < 0) {
+            printf("Invalid input\n");
+            waitForEnter();
+            
+        }
     } while (choice != 0);
 
     free(students);

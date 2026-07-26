@@ -173,7 +173,8 @@ void searchStudentByName(student *students)
     char name[NAME_LENGTH];
     if (count_of_std == 0)
     {
-        printf("No students available!\n\n");
+        printf("No students available!\n");
+        waitForEnter();
         return;
     }
 
@@ -214,6 +215,7 @@ void searchStudentByName(student *students)
         else
         {
             printf("No student found.\n");
+            
         }
 
     } while (1);
@@ -224,7 +226,8 @@ void searchStudentByRoll(student *students)
     char input[10];
     if (count_of_std == 0)
     {
-        printf("No students available!\n\n");
+        printf("No students available!\n");
+        waitForEnter();
         return;
     }
 
@@ -288,7 +291,8 @@ void deleteStudent(student *students)
     int index = 0;
     if (count_of_std == 0)
     {
-        printf("No students available!\n\n");
+        printf("No students available!\n");
+        waitForEnter();
         return;
     }
 
@@ -392,7 +396,8 @@ void updateStudent(student *students)
     char confirmation[10];
     if (count_of_std == 0)
     {
-        printf("No students available!\n\n");
+        printf("No students available!\n");
+        waitForEnter();
         return;
     }
     do
