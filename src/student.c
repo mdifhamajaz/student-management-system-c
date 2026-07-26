@@ -637,17 +637,18 @@ void showToppers(student *students)
     waitForEnter();
 }
 
-void showStats(student *students)
+void showStatistics(student *students)
 {
     if (count_of_std != 0)
     {
         int totalStudents = count_of_std;
         float highestMarks = students[0].marks;
         char highestStudentName[NAME_LENGTH];
+        strcpy(highestStudentName, students[0].name);
         float lowestMarks = students[0].marks;
         char lowestStudentName[NAME_LENGTH];
+        strcpy(lowestStudentName, students[0].name);
         float totalMarks = 0;
-        float averageMarks = 0;
         int passCount = 0;
         int failCount = 0;
         float passPercent = 0;
@@ -674,7 +675,7 @@ void showStats(student *students)
                 passCount++;
             }
         }
-        averageMarks = totalMarks / totalStudents;
+        float averageMarks = totalMarks / totalStudents;
 
         failCount = totalStudents - passCount;
 
@@ -682,8 +683,11 @@ void showStats(student *students)
 
         failPercent = 100 - passPercent;
 
-        formatName(highestStudentName, highestStudentName, 14);
-        formatName(lowestStudentName, lowestStudentName, 14);
+        char displayHighest[15];
+        char displayLowest[15];
+
+        formatName(highestStudentName, displayHighest, 14);
+        formatName(lowestStudentName, displayLowest, 14);
 
         printf("==========================================\n");
         printf("                Statistics\n");
@@ -691,8 +695,8 @@ void showStats(student *students)
 
         printf("Total Students   : %d\n\n", totalStudents);
 
-        printf("Highest Marks    : %.2f (%s)\n", highestMarks, highestStudentName);
-        printf("Lowest Marks     : %.2f (%s)\n\n", lowestMarks, lowestStudentName);
+        printf("Highest Marks    : %.2f (%s)\n", highestMarks, displayHighest);
+        printf("Lowest Marks     : %.2f (%s)\n\n", lowestMarks, displayLowest);
 
         printf("Average Marks    : %.2f\n\n", averageMarks);
 
@@ -704,10 +708,11 @@ void showStats(student *students)
 
         printf("\n==========================================\n\n");
 
-        waitForEnter();
+        
     }
     else
     {
         printf("No students added yet!\n");
     }
+    waitForEnter();
 }

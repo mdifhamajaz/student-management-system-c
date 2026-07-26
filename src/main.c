@@ -54,7 +54,7 @@ int main()
         }
         if (choice == 8)
         {
-            showStats(students);
+            showStatistics(students);
         }
     } while (choice != 0);
 
