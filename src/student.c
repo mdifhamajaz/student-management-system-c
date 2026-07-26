@@ -643,7 +643,9 @@ void showStats(student *students)
     {
         int totalStudents = count_of_std;
         float highestMarks = students[0].marks;
+        char highestStudentName[NAME_LENGTH];
         float lowestMarks = students[0].marks;
+        char lowestStudentName[NAME_LENGTH];
         float totalMarks = 0;
         float averageMarks = 0;
         int passCount = 0;
@@ -656,11 +658,13 @@ void showStats(student *students)
             if (students[i].marks > highestMarks)
             {
                 highestMarks = students[i].marks;
+                strcpy(highestStudentName, students[i].name);
             }
 
             if (students[i].marks < lowestMarks)
             {
                 lowestMarks = students[i].marks;
+                strcpy(lowestStudentName, students[i].name);
             }
 
             totalMarks += students[i].marks;
@@ -678,14 +682,17 @@ void showStats(student *students)
 
         failPercent = 100 - passPercent;
 
+        formatName(highestStudentName, highestStudentName, 14);
+        formatName(lowestStudentName, lowestStudentName, 14);
+
         printf("==========================================\n");
         printf("                Statistics\n");
         printf("==========================================\n\n");
 
         printf("Total Students   : %d\n\n", totalStudents);
 
-        printf("Highest Marks    : %.2f\n", highestMarks);
-        printf("Lowest Marks     : %.2f\n\n", lowestMarks);
+        printf("Highest Marks    : %.2f (%s)\n", highestMarks, highestStudentName);
+        printf("Lowest Marks     : %.2f (%s)\n\n", lowestMarks, lowestStudentName);
 
         printf("Average Marks    : %.2f\n\n", averageMarks);
 
