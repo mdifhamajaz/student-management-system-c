@@ -1,4 +1,4 @@
-#include<string.h>
+#include <string.h>
 
 #include "sorting.h"
 
@@ -48,8 +48,9 @@ void sortByMarksAscending(student *students)
     }
 }
 
-void sortByNameAscending(student *students) {
-     
+void sortByNameAscending(student *students)
+{
+
     for (int i = 0; i < count_of_std - 1; i++)
     {
         int minIndex = i;
@@ -71,8 +72,9 @@ void sortByNameAscending(student *students) {
     }
 }
 
-void sortByNameDescending(student *students) {
-     
+void sortByNameDescending(student *students)
+{
+
     for (int i = 0; i < count_of_std - 1; i++)
     {
         int maxIndex = i;
@@ -94,3 +96,26 @@ void sortByNameDescending(student *students) {
     }
 }
 
+void sortByRollAscending(student *students)
+{
+
+    for (int i = 0; i < count_of_std - 1; i++)
+    {
+        int minIndex = i;
+
+        for (int j = i + 1; j < count_of_std; j++)
+        {
+            if (students[j].roll < students[minIndex].roll)
+            {
+                minIndex = j;
+            }
+        }
+
+        if (minIndex != i)
+        {
+            student temp = students[i];
+            students[i] = students[minIndex];
+            students[minIndex] = temp;
+        }
+    }
+}
