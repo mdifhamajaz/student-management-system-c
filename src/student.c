@@ -158,18 +158,59 @@ void displayStudents(student *students)
 
     if (count_of_std != 0)
     {
-        // printHeader("S.No.");
-        // printStudentTable(students, count_of_std);
 
-        printDisplayMenu();
-        
+        int choice;
+        do
+        {
+            printDisplayMenu();
+            choice = scanMenu(students);
+            if (choice == 0)
+            {
+                break;
+            }
+            
+            if (choice > 6 || choice < 0)
+            {
+                printf("Invalid input\n");
+                waitForEnter();
+                continue;
+            }
+            student *sortedList = malloc(count_of_std * sizeof(student));
+            if (choice > 1)
+            {
+                if (sortedList == NULL)
+                {
+                    printf("Memory allocation failed.\n");
+                    return;
+                }
+
+                for (int i = 0; i < count_of_std; i++)
+                {
+                    sortedList[i] = students[i];
+                }
+            }
+
+            if (choice == 1)
+            {
+
+                printHeader("S.No.");
+                printStudentTable(students, count_of_std);
+            }
+            if (choice == 2)
+            {
+                sortByMarksDescending(sortedList, count_of_std);
+                printHeader("S.No.");
+                printStudentTable(sortedList, count_of_std);
+            }
+            waitForEnter();
+
+        } while (1);
     }
     else
     {
         printf("No students added yet!\n");
+        waitForEnter();
     }
-
-    waitForEnter();
 }
 
 void searchStudentByName(student *students)
@@ -219,7 +260,6 @@ void searchStudentByName(student *students)
         else
         {
             printf("No student found.\n");
-            
         }
 
     } while (1);
@@ -716,8 +756,6 @@ void showStatistics(student *students)
         printf("Fail Percentage  : %.2f%%\n", failPercent);
 
         printf("\n==========================================\n\n");
-
-        
     }
     else
     {
