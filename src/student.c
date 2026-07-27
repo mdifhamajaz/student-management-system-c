@@ -15,6 +15,7 @@
 #define INITIAL_CAPACITY 10
 #define PASS_MARKS 33
 
+
 int count_of_std = 0;
 int student_capacity = INITIAL_CAPACITY;
 
@@ -163,7 +164,21 @@ void displayStudents(student *students)
         do
         {
             printDisplayMenu();
-            choice = scanMenu(students);
+            choice = scanMenu();
+
+            if (choice == MENU_BACK)
+            {
+               break;
+            }
+
+            if (choice == MENU_EXIT)
+            {
+                free(students);
+                exit(EXIT_SUCCESS);
+            }
+            
+            
+
             if (choice == 0)
             {
                 break;

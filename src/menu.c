@@ -21,7 +21,7 @@ void printMainMenu()
     printf("==========================================\n\n");
 }
 
-int scanMenu(student *students)
+int scanMenu()
 {
     char input[10];
     int choice;
@@ -30,10 +30,13 @@ int scanMenu(student *students)
     {
         readString("Enter your choice: ", input, sizeof(input));
 
-        if (isExitCommand(input) || isBackCommand(input))
+        if (isExitCommand(input))
         {
-            free(students);
-            exit(EXIT_SUCCESS);
+            return MENU_EXIT;
+        }
+        if (isBackCommand(input))
+        {
+            return MENU_BACK;
         }
 
         if (parseInt(input, &choice))
@@ -50,7 +53,7 @@ void printDisplayMenu()
     printf("==========================================\n");
     printf("             Display Students\n");
     printf("==========================================\n\n");
- 
+
     printf("1: Original Order\n");
     printf("2: Marks (High to Low)\n");
     printf("3: Marks (Low to High)\n");

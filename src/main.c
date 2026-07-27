@@ -20,8 +20,18 @@ int main()
     do
     {
         printMainMenu();
-        choice = scanMenu(students);
+        choice = scanMenu();
+        if (choice == MENU_EXIT || choice == MENU_BACK)
+        {
+            free(students);
+            exit(EXIT_SUCCESS);
+        }
 
+        if (choice > 8 || choice < 0)
+        {
+            printf("Invalid input\n");
+            waitForEnter();
+        }
         if (choice == 1)
         {
 
@@ -56,11 +66,7 @@ int main()
         {
             showStatistics(students);
         }
-        if(choice > 8 || choice < 0) {
-            printf("Invalid input\n");
-            waitForEnter();
-            
-        }
+
     } while (choice != 0);
 
     free(students);
