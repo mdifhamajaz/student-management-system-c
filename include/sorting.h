@@ -4,6 +4,7 @@
 #include "student.h"
 
 void sortByMarksDescending(student *students, int topCount);
+void sortByMarksAscending(student *students);
  
 
 #endif
