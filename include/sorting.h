@@ -5,6 +5,7 @@
 
 void sortByMarksDescending(student *students, int topCount);
 void sortByMarksAscending(student *students);
+void sortByNameAscending(student *students);
  
 
 #endif

@@ -208,6 +208,12 @@ void displayStudents(student *students)
                 printHeader("S.No.");
                 printStudentTable(sortedList, count_of_std);
             }
+            if (choice == 4)
+            {
+                sortByNameAscending(sortedList);
+                printHeader("S.No.");
+                printStudentTable(sortedList, count_of_std);
+            }
             waitForEnter();
 
         } while (1);
