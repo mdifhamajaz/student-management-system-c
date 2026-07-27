@@ -9,6 +9,7 @@
 #include "command.h"
 #include "sorting.h"
 #include "ui.h"
+#include "menu.h"
 
 #define NAME_LENGTH 33
 #define INITIAL_CAPACITY 10
@@ -157,8 +158,11 @@ void displayStudents(student *students)
 
     if (count_of_std != 0)
     {
-        printHeader("S.No.");
-        printStudentTable(students, count_of_std);
+        // printHeader("S.No.");
+        // printStudentTable(students, count_of_std);
+
+        printDisplayMenu();
+        
     }
     else
     {

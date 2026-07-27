@@ -3,7 +3,8 @@
 
 #include"student.h"
 
-void printMenu();
+void printMainMenu();
+void printDisplayMenu();
 int scanMenu(student *students);
 
 #endif

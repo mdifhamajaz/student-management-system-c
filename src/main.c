@@ -19,7 +19,7 @@ int main()
 
     do
     {
-        printMenu();
+        printMainMenu();
         choice = scanMenu(students);
 
         if (choice == 1)

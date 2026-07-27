@@ -6,7 +6,7 @@
 #include "command.h"
 #include "student.h"
 
-void printMenu()
+void printMainMenu()
 {
     printf("==========================================\n");
     printf("1: Add students\n");
@@ -43,4 +43,20 @@ int scanMenu(student *students)
 
         printf("Invalid input. Please enter a number or a command(back/exit).\n");
     }
+}
+
+void printDisplayMenu()
+{
+    printf("==========================================\n");
+    printf("             Display Students\n");
+    printf("==========================================\n\n");
+ 
+    printf("1: Original Order\n");
+    printf("2: Marks (High to Low)\n");
+    printf("3: Marks (Low to High)\n");
+    printf("4: Name (A to Z)\n");
+    printf("5: Name (Z to A)\n");
+    printf("6: Roll Number (Ascending)\n");
+    printf("0: Back\n");
+    printf("==========================================\n\n");
 }
