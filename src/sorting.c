@@ -71,3 +71,26 @@ void sortByNameAscending(student *students) {
     }
 }
 
+void sortByNameDescending(student *students) {
+     
+    for (int i = 0; i < count_of_std - 1; i++)
+    {
+        int maxIndex = i;
+
+        for (int j = i + 1; j < count_of_std; j++)
+        {
+            if (strcmp(students[j].name, students[maxIndex].name) > 0)
+            {
+                maxIndex = j;
+            }
+        }
+
+        if (maxIndex != i)
+        {
+            student temp = students[i];
+            students[i] = students[maxIndex];
+            students[maxIndex] = temp;
+        }
+    }
+}
+
