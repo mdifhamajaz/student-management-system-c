@@ -276,7 +276,6 @@ void searchStudentByName(student *students)
         }
 
         student *results = malloc(count_of_std * sizeof(student));
-         
 
         if (results == NULL)
         {
@@ -287,7 +286,7 @@ void searchStudentByName(student *students)
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strcmp(name, students[i].name) == 0)
+            if (strstr(students[i].name, name) != NULL)
             {
                 results[resultCount] = students[i];
                 resultCount++;
@@ -296,13 +295,20 @@ void searchStudentByName(student *students)
 
         if (resultCount > 0)
         {
-            printf("\nMatch Found:\n");
+            if (resultCount == 1)
+            {
+                printf("\n1 match found:\n");
+            }
+            else
+            {
+                printf("\n%d matches found:\n", resultCount);
+            }
             printHeader("S.No.");
             printStudentTable(results, resultCount);
         }
         else
         {
-            printf("No student found.\n");
+            printf("No matching students found.\n\n");
         }
 
     } while (1);
