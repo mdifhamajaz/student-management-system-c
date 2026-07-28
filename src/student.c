@@ -15,7 +15,6 @@
 #define INITIAL_CAPACITY 10
 #define PASS_MARKS 33
 
-
 int count_of_std = 0;
 int student_capacity = INITIAL_CAPACITY;
 
@@ -168,7 +167,7 @@ void displayStudents(student *students)
 
             if (choice == MENU_BACK)
             {
-               break;
+                break;
             }
 
             if (choice == MENU_EXIT)
@@ -176,14 +175,12 @@ void displayStudents(student *students)
                 free(students);
                 exit(EXIT_SUCCESS);
             }
-            
-            
 
             if (choice == 0)
             {
                 break;
             }
-            
+
             if (choice > 6 || choice < 0)
             {
                 printf("Invalid input\n");
@@ -278,7 +275,14 @@ void searchStudentByName(student *students)
             exit(EXIT_SUCCESS);
         }
 
-        student results[1000];
+        student *results = malloc(count_of_std * sizeof(student));
+         
+
+        if (results == NULL)
+        {
+            printf("Memory allocation failed.\n");
+            return;
+        }
         int resultCount = 0;
 
         for (int i = 0; i < count_of_std; i++)
