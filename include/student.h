@@ -3,20 +3,24 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+
 typedef struct
 {
 
-    char name[34];
+    char name[33];
     int roll;
     float marks;
 } student;
 
 extern int count_of_std;
-void addStudent(student students[1000]);
-void displayStudents(student students[1000]);
-void searchStudentByName(student students[1000]);
-void searchStudentByRoll(student students[1000]);
-void deleteStudent(student students[1000]);
-void updateStudent(student students[1000]);
+extern int student_capacity;
+void addStudent(student **students);
+void displayStudents(student *students);
+void searchStudentByName(student *students);
+void searchStudentByRoll(student *students);
+void deleteStudent(student *students);
+void updateStudent(student *students);
+void showToppers(student *students);
+void showStatistics(student *students);
 
 #endif

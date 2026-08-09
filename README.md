@@ -1,102 +1,307 @@
-# 🎓 Student Management System (C Language)
+# 🎓 Student Management System — C
 
 ![C](https://img.shields.io/badge/Language-C-blue)
-![Version](https://img.shields.io/badge/Version-2.1.1-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
+![Version](https://img.shields.io/badge/Version-3.0-green)
+![Status](https://img.shields.io/badge/Status-Stable-success)
 ![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)
 
 ## 📌 Overview
 
 This project is part of my C programming learning journey, where I continuously improve the same application as I learn new concepts.
 
-Instead of building multiple small projects, I am evolving **one system step-by-step** to understand how real software grows over time and how maintainable code is developed.
+Instead of building multiple small projects, I chose to evolve **one system step-by-step** to understand how real software grows over time, how existing code can be refactored, and how maintainable software is developed.
 
-**Current Version: V2.1.1**
+The project started as a simple student management program and gradually evolved into a modular, dynamically allocated, feature-rich command-line application.
+
+**Current Version: V3.0**
 
 ---
 
-## 🚀 Features (V2.1.1)
+## 🚀 Features
 
-* ➕ Add student (Name, Roll Number, Marks)
-* 📋 Display all students
-* 🔍 Search student:
-  * By Name
-  * By Roll Number
-* ✏️ Update student details
-* ❌ Delete student records
-* 🆔 Unique roll number system (no duplicates allowed)
-* 💾 Persistent storage using binary files (`.dat`)
-* ⚡ Auto-save after every operation
-* 🧩 Refactored into a modular architecture using multiple source and header files
+### 👨‍🎓 Student Management
+
+- ➕ Add students
+  - Name
+  - Roll Number
+  - Marks
+- 📋 Display all students
+- 🔍 Search students by Roll Number
+- 🔎 Search students by Name
+- 🔎 Partial name search
+- 🔤 Case-insensitive name search
+- ✏️ Update student details
+- ❌ Delete student records
+- 🆔 Unique roll number validation
+
+### 📊 Student Statistics
+
+The statistics view provides:
+
+- Total number of students
+- Highest marks
+- Student with the highest marks
+- Lowest marks
+- Student with the lowest marks
+- Average marks
+- Number of passed students
+- Number of failed students
+- Pass percentage
+- Fail percentage
+
+### 🏆 Top Performers
+
+- Display top-performing students based on marks
+- Ranking-based output
+- Sorted in descending order of marks
+- Configurable number of top performers
+
+### 🔃 Sorting Views
+
+Students can be displayed using different sorting options:
+
+- Marks — Ascending
+- Marks — Descending
+- Name — Ascending
+- Name — Descending
+- Roll Number — Ascending
+
+Sorting is performed on a copy of the student data so that the original stored order is not unnecessarily modified.
+
+### 💾 Persistent Storage
+
+- Binary file storage using `.dat`
+- Automatic saving after operations
+- Student data persists between program executions
+- Data file is automatically created when required
+
+### 🧠 Input & Validation
+
+- `fgets()`-based string input
+- Validated integer input
+- Validated floating-point input
+- Safe handling of oversized input
+- Roll number validation
+- Duplicate roll number prevention
+- Marks validation
+- Student name validation
+- Partial search support
+- Case-insensitive search
+- Command support such as `back` and `exit`
+
+### 🖥️ CLI Experience
+
+- Clean command-line interface
+- Separate main and display menus
+- Reusable tabular output formatting
+- Consistent messages and formatting
+- User-friendly validation feedback
+- Navigation commands
+- Ranking and statistics views
+
+---
+
+## 📸 Screenshots
+
+### Main Menu
+
+![Main Menu](screenshots/main-menu.png)
+
+### Student Display & Sorting
+
+![Student Display](screenshots/student-list.png)
+
+### Statistics
+
+![Student Statistics](screenshots/statistics.png)
+
+### Search
+
+![Student Search](screenshots/search.png)
 
 ---
 
 ## ⭐ Key Highlights
 
-- Built a complete CRUD system in C
-- Implemented persistent storage using binary files
-- Designed a unique roll-based identification system
-- Applied real-world data modeling using structures
-- Refactored a working single-file application into a modular architecture
-- Preserved functionality while improving maintainability and readability
+- Built a complete CRUD application in C
+- Evolved the same codebase through multiple versions
+- Refactored the application from a basic implementation into a modular architecture
+- Replaced fixed-size student storage with **dynamic memory allocation**
+- Used `malloc()`, `realloc()`, and `free()`
+- Implemented proper memory deallocation
+- Migrated input handling from `scanf()` to validated `fgets()`-based input
+- Implemented safe integer and floating-point parsing
+- Added binary file persistence
+- Implemented sorting and ranking functionality
+- Added student statistics
+- Implemented partial and case-insensitive name searching
+- Added reusable tabular output formatting
+- Added command-aware input handling
+- Improved validation and error handling
+- Used Git feature branches throughout V3 development
 
 ---
 
 ## 🧠 Concepts Used
 
-* Structures (`struct`)
-* File Handling (`fopen`, `fread`, `fwrite`)
-* Arrays
-* Functions
-* Loops & Conditionals
-* String Handling (`string.h`)
-* Data Validation
-* Modular Programming
-* Header Files
-* Include Guards
-* Multi-file Compilation
-* `extern` Keyword
+### C Programming
+
+- Structures
+- Pointers
+- Pointer-to-pointer
+- Dynamic Memory Allocation
+- `malloc()`
+- `realloc()`
+- `free()`
+- Arrays
+- Functions
+- Loops
+- Conditional statements
+- String handling
+- `string.h`
+- `ctype.h`
+
+### File Handling
+
+- `fopen()`
+- `fread()`
+- `fwrite()`
+- Binary file handling
+- Persistent data storage
+
+### Input & Validation
+
+- `fgets()`
+- `strtol()`
+- `strtod()`
+- Input validation
+- Command parsing
+- Error handling
+
+### Algorithms
+
+- Selection Sort
+- Searching
+- Partial string matching
+- Case-insensitive string matching
+
+### Software Design
+
+- Modular programming
+- Header files
+- Include guards
+- Multi-file compilation
+- Separation of responsibilities
+- Reusable utility functions
+- Git branching and feature-based development
 
 ---
 
 ## 🏗️ Project Evolution
 
-This project is being upgraded version by version:
+This project has evolved continuously as my understanding of C has improved.
 
-* **V1.0** → Basic system using arrays (names only)
-* **V2.0** → Structured student records + file persistence
-* **V2.1** → Complete modular refactor while preserving functionality
-* **V3.0 (Planned)** → Advanced features & optimization
+```text
+V1.0
+ │
+ ├── Basic student system
+ └── Array-based storage
+       │
+       ▼
+V2.0
+ │
+ ├── Struct-based student records
+ ├── Roll numbers
+ ├── Marks
+ ├── CRUD operations
+ └── File persistence
+       │
+       ▼
+V2.1
+ │
+ ├── Modular architecture
+ ├── Multiple source/header files
+ ├── File handling module
+ ├── Menu module
+ └── Improved maintainability
+       │
+       ▼
+V3.0
+ │
+ ├── Dynamic memory allocation
+ ├── Validated fgets-based input
+ ├── Command handling
+ ├── Improved CLI/output system
+ ├── Sorting views
+ ├── Top performers
+ ├── Statistics
+ ├── Partial name search
+ ├── Case-insensitive search
+ └── Enhanced validation
+```
 
 ---
 
 ## 📂 Data Storage
 
-- Student data is stored in the binary file:
+Student records are stored in:
 
-  ```text
-  data/student_data.dat
-  ```
+```text
+data/student_data.dat
+```
 
-- The `data/` directory is tracked using `.gitkeep`.
+The `data/` directory is tracked using `.gitkeep`.
 
-- The file is automatically created if it does not exist.
+The generated `student_data.dat` file is ignored by Git and is not included in the repository.
 
-- `student_data.dat` is ignored by Git and is not included in the repository.
+The data file is automatically created when it does not exist.
 
-- Data persists even after the program exits.
+Student data persists after the program exits and can be loaded again when the application starts.
 
 ---
 
-## 🔄 Future Improvements (V3 Roadmap)
+## 📁 Project Structure
 
-* [ ] Sorting students (Topper / ranking system)
-* [ ] Dynamic memory allocation (remove fixed size limit)
-* [ ] Improved input handling using `fgets`
-* [ ] Partial search (substring matching)
-* [ ] Better CLI experience (clean UI/UX)
-* [ ] Student statistics dashboard
-* [ ] Enhanced validation and error handling
+```text
+Student-Management-System-C/
+│
+├── data/
+│   ├── .gitkeep
+│   └── student_data.dat          # Generated at runtime
+│
+├── include/
+│   ├── command.h
+│   ├── file_handler.h
+│   ├── input.h
+│   ├── menu.h
+│   ├── output.h
+│   ├── sorting.h
+│   ├── string_utils.h
+│   ├── student.h
+│   └── ui.h
+│
+├── src/
+│   ├── command.c
+│   ├── file_handler.c
+│   ├── input.c
+│   ├── main.c
+│   ├── menu.c
+│   ├── output.c
+│   ├── sorting.c
+│   ├── string_utils.c
+│   ├── student.c
+│   └── ui.c
+│
+├── screenshots/
+│   ├── main-menu.png
+│   ├── student-list.png
+│   ├── statistics.png
+│   └── search.png
+│
+├── .gitignore
+├── README.md
+└── LICENSE
+```
 
 ---
 
@@ -104,113 +309,128 @@ This project is being upgraded version by version:
 
 ### Compile
 
+From the project root:
+
 ```bash
 gcc src/*.c -Iinclude -o sms
 ```
 
-### Run
-
-#### Linux / macOS
+### Run on Linux / macOS
 
 ```bash
 ./sms
 ```
 
-#### Windows (PowerShell)
+### Run on Windows PowerShell
 
 ```powershell
 .\sms.exe
 ```
 
-#### Windows (Command Prompt)
+### Run on Windows Command Prompt
 
 ```cmd
 sms.exe
 ```
 
 ---
-## 📁 Project Structure
-
-```text
-Student-Management-System/
-│
-├── src/
-│   ├── main.c
-│   ├── student.c
-│   ├── file_handler.c
-│   └── menu.c
-│
-├── include/
-│   ├── student.h
-│   ├── file_handler.h
-│   └── menu.h
-│
-├── data/
-│   ├── .gitkeep
-│   └── student_data.dat   (generated automatically at runtime)
-│
-├── README.md
-└── .gitignore
-```
-
----
 
 ## 📈 Version History
 
-* **V1.0** — Array-based student system (names only)
-* **V2.0** — Struct-based system with file persistence
-* **V2.1** — Complete modular refactor using multiple source and header files
+### V1.0
+
+- Basic array-based student system
+- Student name handling
+- Basic student operations
+
+### V2.0
+
+- Introduced `struct`-based student records
+- Added roll numbers
+- Added marks
+- Added file persistence
+- Added unique roll number validation
+- Expanded CRUD functionality
+
+### V2.1
+
+- Refactored the application into a modular architecture
+- Separated functionality across multiple source and header files
+- Added include guards
+- Introduced `extern` for shared state
+- Implemented multi-file compilation
+- Improved maintainability and readability
+
+### V3.0
+
+- Replaced fixed-size student storage with dynamic memory allocation
+- Added `malloc()`, `realloc()`, and proper memory deallocation
+- Replaced `scanf()`-based input with validated `fgets()`-based input
+- Added safe integer and floating-point parsing
+- Added command-aware input handling
+- Added reusable tabular output formatting
+- Added top performer ranking
+- Added student statistics
+- Added multiple sorting views
+- Added partial name search
+- Added case-insensitive name search
+- Added enhanced student-name validation
+- Improved CLI navigation and user feedback
 
 ---
+
 
 ## 🎯 Purpose
 
 This project helps me:
 
-* Apply core C programming concepts in a real program
-* Understand how software evolves with new knowledge
-* Build strong fundamentals in data handling and program design
-* Learn how to refactor and maintain existing codebases
-* Develop better software engineering practices
+- Apply C programming concepts to a real application
+- Understand how software evolves over time
+- Practice refactoring an existing codebase
+- Learn dynamic memory management
+- Improve my understanding of algorithms and data handling
+- Practice modular software design
+- Develop better validation and error-handling habits
+- Learn Git-based development workflows
+- Build software incrementally instead of starting from scratch every time
+
+The goal was not simply to make the program work, but to continuously improve the same codebase as my understanding of programming grew.
 
 ---
 
 ## 📚 Learning Journey
 
-I am currently learning C step-by-step and improving this project alongside my progress.
+This project started as a simple C program and gradually became a significantly more structured application.
 
-Rather than creating many disconnected projects, I aim to grow this application version by version to simulate how real-world software is developed and maintained.
+Each major version represents a stage in my learning—from basic arrays and functions, to structures and file handling, then modular architecture, dynamic memory allocation, algorithms, validation, and CLI design.
 
-This project will continue evolving with more advanced features in upcoming versions.
+**V3.0 marks the completion of this major phase of the project.**
 
----
-
-## 🔄 Changelog
-
-### V1.0 → V2.0
-
-- Migrated from an array-based system to a `struct`-based design
-- Added file handling for persistent storage
-- Introduced roll number as a unique identifier
-- Implemented duplicate roll validation
-- Improved update and delete operations
-- Added search by roll number
-
-🔗 Full changes: https://github.com/mdifhamajaz/student-management-system-c/compare/v1.0...v2.0
-
-### V2.0 → V2.1
-
-- Refactored the entire application into multiple source and header files
-- Added dedicated modules for file handling, menu management, and student operations
-- Introduced include guards for safer header inclusion
-- Used `extern` to manage shared global state
-- Implemented multi-file compilation
-- Improved maintainability and readability without changing functionality
-
-🔗 Full changes: https://github.com/mdifhamajaz/student-management-system-c/compare/v2.0...v2.1
+The next phase of my learning journey will focus on **Java and Object-Oriented Programming**, while continuing to strengthen my programming and software engineering fundamentals.
 
 ---
 
-⭐ If you're also learning C, feel free to explore this project, suggest improvements, or build your own version alongside!
+## 🚀 V3.0 Release
 
-Happy Coding! 🚀
+**V3.0 is a major milestone for this project.**
+
+The focus of this release was not just adding features, but improving the application's:
+
+- Architecture
+- Memory management
+- Input safety
+- Validation
+- CLI experience
+- Data handling
+- Search capabilities
+- Sorting
+- Student analysis
+- Maintainability
+
+From a basic C program to a modular student management system, this project represents my progression through the fundamentals of C and software development.
+
+---
+
+⭐ If you're also learning C, feel free to explore the project, suggest improvements, or build your own version.
+
+**Happy Coding! 🚀**

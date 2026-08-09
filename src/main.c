@@ -1,33 +1,41 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "file_handler.h"
 #include "student.h"
 #include "menu.h"
+#include "input.h"
+#include "ui.h"
 
 int main()
 {
-    student students[1000];
+    printWelcome();
+    waitForEnter();
+    student *students = malloc(student_capacity * sizeof(student));
 
-    loadFromFile(students);
-
+    loadFromFile(&students);
     int choice;
 
     do
     {
-        printMenu();
+        printMainMenu();
         choice = scanMenu();
+        if (choice == MENU_EXIT || choice == MENU_BACK)
+        {
+            free(students);
+            exit(EXIT_SUCCESS);
+        }
 
+        if (choice > 8 || choice < 0)
+        {
+            printf("Invalid input\n");
+            waitForEnter();
+        }
         if (choice == 1)
         {
-            if (count_of_std < 1000)
-            {
-                addStudent(students);
-            }
-            else
-            {
-                printf("Database is full, Can't add more students!\n");
-            }
+
+            addStudent(&students);
         }
         if (choice == 2)
         {
@@ -50,8 +58,19 @@ int main()
         {
             updateStudent(students);
         }
+        if (choice == 7)
+        {
+            showToppers(students);
+        }
+        if (choice == 8)
+        {
+            showStatistics(students);
+        }
 
     } while (choice != 0);
+
+    free(students);
+    students = NULL;
 
     return 0;
 }

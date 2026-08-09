@@ -1,30 +1,49 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "file_handler.h"
 #include "student.h"
-void loadFromFile(student students[1000])
+void loadFromFile(student **students)
 {
-    FILE *fptr;
-    fptr = fopen("data/student_data.dat", "rb");
+    FILE *fptr = fopen("data/student_data.dat", "rb");
 
     if (fptr != NULL)
     {
-        while (fread(&students[count_of_std], sizeof(student), 1, fptr) == 1)
+        while (1)
         {
+            if (count_of_std >= student_capacity)
+            {
+                student_capacity *= 2;
+
+                student *temp = realloc(*students, student_capacity * sizeof(student));
+
+                if (temp == NULL)
+                {
+                    free(*students);
+                    exit(EXIT_FAILURE);
+                }
+
+                *students = temp;
+            }
+
+            if (fread(&(*students)[count_of_std], sizeof(student), 1, fptr) != 1)
+            {
+                break;
+            }
+
             count_of_std++;
         }
 
         fclose(fptr);
-        fptr = NULL;
-    } else {
+    }
+    else
+    {
         fptr = fopen("data/student_data.dat", "wb");
         fclose(fptr);
-        fptr = NULL;
     }
-     
 }
 
-void saveToFile(student students[1000])
+void saveToFile(student *students)
 {
     FILE *fptr;
     fptr = fopen("data/student_data.dat", "wb");
@@ -32,7 +51,6 @@ void saveToFile(student students[1000])
     if (fptr != NULL)
     {
         fwrite(students, sizeof(student), count_of_std, fptr);
-         
 
         fclose(fptr);
         fptr = NULL;
