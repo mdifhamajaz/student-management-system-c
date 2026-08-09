@@ -10,6 +10,7 @@
 #include "sorting.h"
 #include "ui.h"
 #include "menu.h"
+#include "string_utils.h"
 
 #define NAME_LENGTH 33
 #define INITIAL_CAPACITY 10
@@ -283,10 +284,15 @@ void searchStudentByName(student *students)
             return;
         }
         int resultCount = 0;
+        char storedName[NAME_LENGTH];
+        char searchedName[NAME_LENGTH];
 
         for (int i = 0; i < count_of_std; i++)
         {
-            if (strstr(students[i].name, name) != NULL)
+            toLowerCase(students[i].name, storedName);
+            toLowerCase(name, searchedName);
+
+            if (strstr(storedName, searchedName) != NULL)
             {
                 results[resultCount] = students[i];
                 resultCount++;
