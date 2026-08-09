@@ -42,6 +42,16 @@ void addStudent(student **students)
         }
         int toGoBack = 0;
         readString("Enter the name: ", name, sizeof(name));
+        if (name[0] < 65 || name[0] > 122)
+        {
+            printf("Invalid Name\n");
+            continue;
+        }
+        if (name[0] > 90 && name[0] < 97)
+        {
+            printf("Invalid Name\n");
+            continue;
+        }
         if (isBackCommand(name))
         {
             break;
@@ -264,6 +274,17 @@ void searchStudentByName(student *students)
     {
 
         readString("Enter the name of student you want to search: ", name, sizeof(name));
+        if (name[0] < 65 || name[0] > 122)
+        {
+            printf("Invalid Name\n");
+            continue;
+        }
+        if (name[0] > 90 && name[0] < 97)
+        {
+            printf("Invalid Name\n");
+            continue;
+        }
+        
 
         if (isBackCommand(name))
         {
