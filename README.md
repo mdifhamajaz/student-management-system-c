@@ -299,7 +299,8 @@ Student-Management-System-C/
 │   └── search.png
 │
 ├── .gitignore
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
